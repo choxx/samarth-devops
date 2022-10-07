@@ -3,7 +3,7 @@ proto: http
 proxy_server_name: localhost
 sunbird_env: dev #rnvronment
 
-docker_hub_url: 128.199.26.225:5000 
+docker_hub_url: 128.199.26.225:5000
 
 env_files_dir: /wingspan_env_files
 
@@ -31,6 +31,9 @@ service_replicas_esmawad_backend_service: 1
 service_mem_reserved_web_service: "{{ memory_m }}"
 service_mem_limit_web_service: "{{ memory_l }}"
 force_reload_esmawad-backend_service: true
+
+service_replicas_fusion_auth_service: 1
+force_reload_fusion_auth_service: true
 
 publish_ports: false
 var_docker_deploy_node_type: manager

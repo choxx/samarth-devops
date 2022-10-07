@@ -2,15 +2,20 @@
 # Update variables for each service here
 
 service_esamwad_backend_service: esamwad-backend-service
+service_fusion_auth_service: fusion-auth-service
 
 service_esamwad_backend_port: 8000
+service_fusion_auth_port: 9011
 
 network_alias_esamwad_backend_service: esamwad-backend-service 
+network_alias_fusion_auth_service: fusion-auth-service
 
 image_esamwad_backend_service: samarth-esamwad-backend-service
+image_fusion_auth_service: samarth-fusion-auth-service
 
 # Add logs specific location herer, if needed
 esamwad_backend_logs: /mydata/logs/backend
+fusion_auth_logs: /mydata/logs/fusion-auth
 
 
 proxy_site_key: "{{ core_vault_proxy_site_key }}"

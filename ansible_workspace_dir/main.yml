@@ -10,4 +10,6 @@
       tags: [stack-proxy]
     - role: deploy-esamwad-backend
       tags: [deploy-esamwad-backend]
+    - role: deploy-fusion-auth
+      tags: [deploy-fusion-auth]
 
