@@ -146,5 +146,15 @@ doc_generator_broker_logs: /mydata/logs/doc_generator_broker
 force_reload_doc_generator_broker_service: true
 doc_generator_broker_secret_path: kv/data/samarth/doc-generator-broker
 
+# For Doc Generator Web
+service_doc_generator_web: doc_generator_web-service
+service_doc_generator_web_host_port: 8000
+service_doc_generator_web_docker_port: 8000
+network_alias_doc_generator_web_service: doc_generator_web-service
+image_doc_generator_web_service: doc_generator-web
+doc_generator_web_logs: /mydata/logs/doc_generator-web
+force_reload_doc_generator_web_service: true
+doc_generator_web_secret_path: kv/data/samarth/doc-generator-web
+
 VAULT_TOKEN: #VAULT TOKEN
 VAULT_ADDR: #VAULT ADDR
