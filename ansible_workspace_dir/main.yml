@@ -37,7 +37,9 @@
     - role: deploy-doc-generator-hasura
       tags: [deploy-doc-generator-hasura]
     - role: deploy-doc-generator-broker
-      tags: [ deploy-doc-generator-broker ]
+      tags: [deploy-doc-generator-broker]
     - role: deploy-doc-generator-web
-      tags: [ deploy-doc-generator-web ]
+      tags: [deploy-doc-generator-web]
+    - role: deploy-doc-generator-worker
+      tags: [deploy-doc-generator-worker]
 
