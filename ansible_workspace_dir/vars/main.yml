@@ -126,5 +126,15 @@ fa_captcha_service_logs: /mydata/logs/fa-captcha-service
 force_reload_fa_captcha_service: true
 fa_captcha_service_secret_path: kv/data/samarth/fa-captcha-service
 
+# For Templater
+service_templater_service: templater-service
+service_templater_host_port: 3007
+service_templater_docker_port: 3000
+network_alias_templater_service: templater-service
+image_templater_service: templater-service
+templater_logs: /mydata/logs/yaus-web
+force_reload_templater_service: true
+templater_secret_path: kv/data/samarth/templater
+
 VAULT_TOKEN: #VAULT TOKEN
 VAULT_ADDR: #VAULT ADDR
