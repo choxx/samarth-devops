@@ -136,5 +136,15 @@ doc_generator_hasura_logs: /mydata/logs/doc_generator_hasura
 force_reload_doc_generator_hasura_service: true
 doc_generator_hasura_secret_path: kv/data/samarth/doc-generator-hasura
 
+# For Doc Generator Broker
+service_doc_generator_broker: doc_generator_broker-service
+service_doc_generator_broker_host_port: 5672
+service_doc_generator_broker_docker_port: 5672
+network_alias_doc_generator_broker_service: doc_generator_broker-service
+image_doc_generator_broker_service: samarth-doc_generator_broker-service
+doc_generator_broker_logs: /mydata/logs/doc_generator_broker
+force_reload_doc_generator_broker_service: true
+doc_generator_broker_secret_path: kv/data/samarth/doc-generator-broker
+
 VAULT_TOKEN: #VAULT TOKEN
 VAULT_ADDR: #VAULT ADDR
