@@ -36,4 +36,6 @@
       tags: [deploy-fa-captcha-service]
     - role: deploy-doc-generator-hasura
       tags: [deploy-doc-generator-hasura]
+    - role: deploy-doc-generator-broker
+      tags: [ deploy-doc-generator-broker ]
 
