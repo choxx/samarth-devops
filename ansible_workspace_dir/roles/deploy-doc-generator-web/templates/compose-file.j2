@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  {{ docker_service_name }}:
+    image: {{ DOCKER_HUB_IMAGE }}
+    command: gunicorn --workers=8 --threads=10 pdf.wsgi:application --bind 0.0.0.0:8000
+    env_file:
+      - {{ env_file_deployment_location }}
+    volumes:
+      - doc_generator_web:/usr/src/app/staticfiles
+
+    {% if publish_ports == true %}
+
+    ports:
+      - {{ host_port }}:{{ docker_port }}
+
+    {% endif %}
+
+    networks:
+      application_default:
+        aliases:
+            - {{ network_alias_name }}
+
+networks:
+  application_default:
+    external: true
+
+volumes:
+  doc_generator_web:

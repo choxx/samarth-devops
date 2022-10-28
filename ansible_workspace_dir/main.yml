@@ -38,4 +38,6 @@
       tags: [deploy-doc-generator-hasura]
     - role: deploy-doc-generator-broker
       tags: [ deploy-doc-generator-broker ]
+    - role: deploy-doc-generator-web
+      tags: [ deploy-doc-generator-web ]
 
