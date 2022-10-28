@@ -126,5 +126,15 @@ fa_captcha_service_logs: /mydata/logs/fa-captcha-service
 force_reload_fa_captcha_service: true
 fa_captcha_service_secret_path: kv/data/samarth/fa-captcha-service
 
+# For Doc Generator Hasura
+service_doc_generator_hasura_service: doc_generator_hasura-service
+service_doc_generator_hasura_host_port: 5001
+service_doc_generator_hasura_docker_port: 8080
+network_alias_doc_generator_hasura_service: doc_generator_hasura-service
+image_doc_generator_hasura_service: samarth-doc_generator_hasura-service
+doc_generator_hasura_logs: /mydata/logs/doc_generator_hasura
+force_reload_doc_generator_hasura_service: true
+doc_generator_hasura_secret_path: kv/data/samarth/doc-generator-hasura
+
 VAULT_TOKEN: #VAULT TOKEN
 VAULT_ADDR: #VAULT ADDR
