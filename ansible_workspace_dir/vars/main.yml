@@ -126,6 +126,46 @@ fa_captcha_service_logs: /mydata/logs/fa-captcha-service
 force_reload_fa_captcha_service: true
 fa_captcha_service_secret_path: kv/data/samarth/fa-captcha-service
 
+# For Doc Generator Hasura
+service_doc_generator_hasura_service: doc_generator_hasura-service
+service_doc_generator_hasura_host_port: 5001
+service_doc_generator_hasura_docker_port: 8080
+network_alias_doc_generator_hasura_service: doc_generator_hasura-service
+image_doc_generator_hasura_service: samarth-doc_generator_hasura-service
+doc_generator_hasura_logs: /mydata/logs/doc_generator_hasura
+force_reload_doc_generator_hasura_service: true
+doc_generator_hasura_secret_path: kv/data/samarth/doc-generator-hasura
+
+# For Doc Generator Broker
+service_doc_generator_broker: doc_generator_broker-service
+service_doc_generator_broker_host_port: 5672
+service_doc_generator_broker_docker_port: 5672
+network_alias_doc_generator_broker_service: doc_generator_broker-service
+image_doc_generator_broker_service: samarth-doc_generator_broker-service
+doc_generator_broker_logs: /mydata/logs/doc_generator_broker
+force_reload_doc_generator_broker_service: true
+doc_generator_broker_secret_path: kv/data/samarth/doc-generator-broker
+
+# For Doc Generator Web
+service_doc_generator_web: doc_generator_web-service
+service_doc_generator_web_host_port: 8000
+service_doc_generator_web_docker_port: 8000
+network_alias_doc_generator_web_service: doc_generator_web-service
+image_doc_generator_web_service: doc_generator-web
+doc_generator_web_logs: /mydata/logs/doc_generator-web
+force_reload_doc_generator_web_service: true
+doc_generator_web_secret_path: kv/data/samarth/doc-generator-web
+
+# For Doc Generator Worker
+service_doc_generator_worker: doc_generator_worker-service
+#service_doc_generator_worker_host_port: 8000
+#service_doc_generator_worker_docker_port: 8000
+network_alias_doc_generator_worker_service: doc_generator_worker-service
+image_doc_generator_worker_service: doc_generator-worker
+doc_generator_worker_logs: /mydata/logs/doc_generator-worker
+force_reload_doc_generator_worker_service: true
+doc_generator_worker_secret_path: "{{ doc_generator_web_secret_path }}" # using the same vault as web 
+
 # For Templater
 service_templater_service: templater-service
 service_templater_host_port: 3007

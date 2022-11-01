@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+
+  {{ docker_service_name }}:
+    image: {{ DOCKER_HUB_IMAGE }}
+    container_name: {{ docker_service_name }}
+    environment:
+      - RABBITMQ_PASSWORD={{ credentials.RABBITMQ_PASSWORD }}
+      - RABBITMQ_USERNAME={{ credentials.RABBITMQ_USERNAME }}
+    volumes:
+      - doc_generator_broker:/bitnami
+
+    {% if publish_ports == true %}
+
+    ports:
+      - {{ host_port }}:{{ docker_port }}
+
+    {% endif %}
+
+    networks:
+      application_default:
+        aliases:
+            - {{ network_alias_name }}
+
+networks:
+  application_default:
+    external: true
+
+volumes:
+  doc_generator_broker:
