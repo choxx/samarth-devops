@@ -164,7 +164,17 @@ network_alias_doc_generator_worker_service: doc_generator_worker-service
 image_doc_generator_worker_service: doc_generator-worker
 doc_generator_worker_logs: /mydata/logs/doc_generator-worker
 force_reload_doc_generator_worker_service: true
-doc_generator_worker_secret_path: "{{ doc_generator_web_secret_path }}" # using the same vault as web
+doc_generator_worker_secret_path: "{{ doc_generator_web_secret_path }}" # using the same vault as web 
+
+# For Templater
+service_templater_service: templater-service
+service_templater_host_port: 3007
+service_templater_docker_port: 3000
+network_alias_templater_service: templater-service
+image_templater_service: templater-service
+templater_logs: /mydata/logs/yaus-web
+force_reload_templater_service: true
+templater_secret_path: kv/data/samarth/templater
 
 VAULT_TOKEN: #VAULT TOKEN
 VAULT_ADDR: #VAULT ADDR
