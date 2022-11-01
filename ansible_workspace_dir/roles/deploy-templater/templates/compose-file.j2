@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+
+  {{ docker_service_name }}:
+    image: {{ DOCKER_HUB_IMAGE }}
+    environment:
+      DATABASE_URL: {{ credentials.DATABASE_URL }}
+    restart: always
+
+    {% if publish_ports == true %}
+
+    ports:
+      - {{ host_port }}:{{ docker_port }}
+
+    {% endif %}
+
+    networks:
+      application_default:
+        aliases:
+            - {{ network_alias_name }}
+
+networks:
+  application_default:
+    external: true
