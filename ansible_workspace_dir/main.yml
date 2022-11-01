@@ -42,4 +42,6 @@
       tags: [deploy-doc-generator-web]
     - role: deploy-doc-generator-worker
       tags: [deploy-doc-generator-worker]
+    - role: deploy-templater
+      tags: [deploy-templater]
 
