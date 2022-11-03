@@ -13,7 +13,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.47">
-      <project>Samarth/production/build/fa-captcha-service/jenkins-setup</project>
+      <project>Samarth/production/build/fa-captcha-service/main</project>
       <filter>commit_id.txt</filter>
       <target></target>
       <excludes></excludes>
