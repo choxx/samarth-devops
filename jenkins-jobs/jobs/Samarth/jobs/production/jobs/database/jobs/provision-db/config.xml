@@ -13,7 +13,7 @@
             <a class="string-array">
               <string>postgres</string>
               <string>mysql</string>
-              <string>mongodb</string>
+              <string>redis</string>
               <string>sqlite</string>
             </a>
           </choices>
