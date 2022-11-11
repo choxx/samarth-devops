@@ -195,5 +195,12 @@ network_alias_posthog_zookeeper_service: posthog_zookeeper-service
 posthog_zookeeper_logs: /mydata/logs/posthog-zookeeper
 force_reload_posthog_zookeeper_service: true
 
+# For Posthog Object Storage
+service_posthog_object_storage_service: posthog_object_storage-service
+network_alias_posthog_object_storage_service: posthog_object_storage-service
+posthog_object_storage_logs: /mydata/logs/posthog-object_storage
+force_reload_posthog_object_storage_service: true
+posthog_object_storage_secret_path: kv/data/samarth/posthog
+
 VAULT_TOKEN: #VAULT TOKEN
 VAULT_ADDR: #VAULT ADDR
