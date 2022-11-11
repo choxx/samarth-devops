@@ -176,5 +176,41 @@ templater_logs: /mydata/logs/yaus-web
 force_reload_templater_service: true
 templater_secret_path: kv/data/samarth/templater
 
+# For Airflow Webserver
+service_airflow_webserver: airflow_webserver-service
+service_airflow_webserver_host_port: 8181
+service_airflow_webserver_docker_port: 8080
+network_alias_airflow_webserver_service: airflow_webserver-service
+image_airflow_webserver_service: airflow
+airflow_webserver_logs: /mydata/logs/airflow-webserver
+force_reload_airflow_webserver_service: true
+airflow_webserver_secret_path: kv/data/samarth/airflow-webserver
+
+# For Airflow Flower
+service_airflow_flower: airflow_flower-service
+service_airflow_flower_host_port: 5555
+service_airflow_flower_docker_port: 5555
+network_alias_airflow_flower_service: airflow_flower-service
+image_airflow_flower_service: airflow
+airflow_flower_logs: /mydata/logs/airflow-flower
+force_reload_airflow_flower_service: true
+airflow_flower_secret_path: "{{ airflow_webserver_secret_path }}"   # using same secret as webserver
+
+# For Airflow Scheduler
+service_airflow_scheduler: airflow_scheduler-service
+network_alias_airflow_scheduler_service: airflow_scheduler-service
+image_airflow_scheduler_service: airflow
+airflow_scheduler_logs: /mydata/logs/airflow-scheduler
+force_reload_airflow_scheduler_service: true
+airflow_scheduler_secret_path: "{{ airflow_webserver_secret_path }}"  # using same secret as webserver
+
+# For Airflow Worker
+service_airflow_worker: airflow_worker-service
+network_alias_airflow_worker_service: airflow_worker-service
+image_airflow_worker_service: airflow
+airflow_worker_logs: /mydata/logs/airflow-worker
+force_reload_airflow_worker_service: true
+airflow_worker_secret_path: "{{ airflow_webserver_secret_path }}"  # using same secret as webserver
+
 VAULT_TOKEN: #VAULT TOKEN
 VAULT_ADDR: #VAULT ADDR
