@@ -176,5 +176,12 @@ templater_logs: /mydata/logs/yaus-web
 force_reload_templater_service: true
 templater_secret_path: kv/data/samarth/templater
 
+# For PosthogClickhouse
+service_posthog_clickhouse: posthog_clickhouse
+network_alias_posthog_clickhouse_service: posthog_clickhouse-service
+image_posthog_clickhouse_service: clickhouse
+posthog_clickhouse_logs: /mydata/logs/yaus-web
+force_reload_posthog_clickhouse_service: true
+
 VAULT_TOKEN: #VAULT TOKEN
 VAULT_ADDR: #VAULT ADDR
