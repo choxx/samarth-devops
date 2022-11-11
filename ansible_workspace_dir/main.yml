@@ -48,4 +48,6 @@
       tags: [deploy-posthog-clickhouse]
     - role: deploy-posthog-kafka
       tags: [deploy-posthog-kafka]
+    - role: deploy-posthog-zookeeper
+      tags: [deploy-posthog-zookeeper]
 

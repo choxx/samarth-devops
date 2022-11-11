@@ -186,18 +186,14 @@ force_reload_posthog_clickhouse_service: true
 # For Posthog Kafka
 service_posthog_kafka_service: posthog_kafka-service
 network_alias_posthog_kafka_service: posthog_kafka-service
-image_posthog_kafka_service: posthog_kafka-service
 posthog_kafka_logs: /mydata/logs/posthog-kafka
 force_reload_posthog_kafka_service: true
-posthog_kafka_secret_path: kv/data/samarth/posthog-kafka
 
 # For Posthog Zookeeper
 service_posthog_zookeeper_service: posthog_zookeeper-service
 network_alias_posthog_zookeeper_service: posthog_zookeeper-service
-image_posthog_zookeeper_service: posthog_zookeeper-service
 posthog_zookeeper_logs: /mydata/logs/posthog-zookeeper
 force_reload_posthog_zookeeper_service: true
-posthog_zookeeper_secret_path: kv/data/samarth/posthog
 
 VAULT_TOKEN: #VAULT TOKEN
 VAULT_ADDR: #VAULT ADDR
