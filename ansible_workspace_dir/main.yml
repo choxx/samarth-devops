@@ -44,4 +44,6 @@
       tags: [deploy-doc-generator-worker]
     - role: deploy-templater
       tags: [deploy-templater]
+    - role: deploy-posthog-clickhouse
+      tags: [deploy-posthog-clickhouse]
 
