@@ -46,4 +46,6 @@
       tags: [deploy-templater]
     - role: deploy-posthog-clickhouse
       tags: [deploy-posthog-clickhouse]
+    - role: deploy-posthog-kafka
+      tags: [deploy-posthog-kafka]
 

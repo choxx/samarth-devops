@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+
+  {{ docker_service_name }}:
+    image: {{ DOCKER_HUB_IMAGE }}
+    hostname: "{{ docker_service_name }}"
+    environment:
+      KAFKA_BROKER_ID: 1001
+      KAFKA_CFG_RESERVED_BROKER_MAX_ID: 1001
+      KAFKA_CFG_LISTENERS: PLAINTEXT://:9092
+      KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://{{ docker_service_name }}:9092
+      KAFKA_CFG_ZOOKEEPER_CONNECT: {{ service_posthog_zookeeper_service }}:2181
+      ALLOW_PLAINTEXT_LISTENER: 'true'
+
+    networks:
+      application_default:
+        aliases:
+            - {{ network_alias_name }}
+
+networks:
+  application_default:
+    external: true
