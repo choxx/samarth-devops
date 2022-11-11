@@ -1,0 +1,43 @@
+version: '3.7'
+
+services:
+  {{ docker_service_name }}:
+    image: {{ docker_hub_url }}/{{ image_name }}:{{ tag }}
+    environment:
+      - LOAD_EX={{ credentials.LOAD_EX }}
+      - FERNET_KEY={{ credentials.FERNET_KEY }}
+      - EXECUTOR={{ credentials.EXECUTOR }}
+      - POSTGRES_USER={{ credentials.POSTGRES_USER }}
+      - POSTGRES_PASSWORD={{ credentials.POSTGRES_PASSWORD }}
+      - POSTGRES_DB={{ credentials.POSTGRES_DB }}
+      - REDIS_PASSWORD={{ credentials.REDIS_PASSWORD }}
+      - 'AIRFLOW__SECRETS__BACKEND_KWARGS={{ credentials.AIRFLOW__SECRETS__BACKEND_KWARGS }}'
+    volumes:
+      - dags:/usr/local/airflow/dags
+      - plugins:/usr/local/airflow/plugins
+    command: webserver
+    healthcheck:
+      test: ["CMD-SHELL", "[ -f /usr/local/airflow/airflow-webserver.pid ]"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    
+    {% if publish_ports == true %}
+
+    ports:
+      - {{ host_port }}:{{ docker_port }}
+      
+    {% endif %}
+    
+    networks:
+      application_default:
+        aliases:
+            - {{ network_alias_name }}
+
+networks:
+  application_default:
+    external: true
+
+volumes:
+  dags:
+  plugins:

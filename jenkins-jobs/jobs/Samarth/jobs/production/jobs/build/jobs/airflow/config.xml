@@ -35,16 +35,6 @@
           <credentialsId>65bc9622-122f-4ad9-a11c-45202509dd1e</credentialsId>
           <traits>
             <jenkins.plugins.git.traits.BranchDiscoveryTrait/>
-            <jenkins.plugins.git.traits.SubmoduleOptionTrait>
-              <extension class="hudson.plugins.git.extensions.impl.SubmoduleOption">
-                <disableSubmodules>false</disableSubmodules>
-                <recursiveSubmodules>true</recursiveSubmodules>
-                <trackingSubmodules>true</trackingSubmodules>
-                <reference>dags</reference>
-                <parentCredentials>true</parentCredentials>
-                <shallow>false</shallow>
-              </extension>
-            </jenkins.plugins.git.traits.SubmoduleOptionTrait>
           </traits>
         </source>
         <strategy class="jenkins.branch.DefaultBranchPropertyStrategy">
