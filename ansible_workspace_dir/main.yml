@@ -44,4 +44,12 @@
       tags: [deploy-doc-generator-worker]
     - role: deploy-templater
       tags: [deploy-templater]
+    - role: deploy-airflow-webserver
+      tags: [deploy-airflow-webserver]
+    - role: deploy-airflow-flower
+      tags: [deploy-airflow-flower]
+    - role: deploy-airflow-scheduler
+      tags: [deploy-airflow-scheduler]
+    - role: deploy-airflow-worker
+      tags: [deploy-airflow-worker]
 
