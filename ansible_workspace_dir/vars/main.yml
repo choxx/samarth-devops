@@ -202,5 +202,15 @@ posthog_object_storage_logs: /mydata/logs/posthog-object_storage
 force_reload_posthog_object_storage_service: true
 posthog_object_storage_secret_path: kv/data/samarth/posthog
 
+# For Posthog
+service_posthog: posthog-service
+service_posthog_host_port: 8023
+service_posthog_docker_port: 8000
+network_alias_posthog_service: posthog-service
+image_posthog_service: posthog
+posthog_logs: /mydata/logs/posthog
+force_reload_posthog_service: true
+posthog_secret_path: kv/data/samarth/posthog
+
 VAULT_TOKEN: #VAULT TOKEN
 VAULT_ADDR: #VAULT ADDR

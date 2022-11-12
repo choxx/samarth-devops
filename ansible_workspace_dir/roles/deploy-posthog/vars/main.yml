@@ -1,0 +1,25 @@
+---
+# vars file for deploy-sb-ext
+# For script
+template_compose_file_name: compose-file.j2
+template_env_file_name: env.j2
+compose_file_name: "{{ service_posthog }}.yml"
+env_file_name: "{{ service_posthog }}.env"
+compose_file_deployment_location: "{{ compose_files_dir }}/{{ compose_file_name }}"
+env_file_deployment_location: "{{ env_files_dir }}/{{ env_file_name }}"
+user_friendly_name: posthog
+
+docker_port: "{{ service_posthog_docker_port }}"
+host_port: "{{ service_posthog_host_port }}"
+image_name: "{{ image_posthog_service }}"
+tag: "{{ tags_posthog_service }}"
+replicas: "{{ service_replicas_posthog_service }}"
+network_alias_name: "{{ network_alias_posthog_service }}"
+docker_service_stack_name: samarth
+docker_service_name: "{{ service_posthog }}"
+force_reload: "{{ force_reload_posthog_service }}"
+host_logs_location: "{{ posthog_service_logs }}"
+docker_logs_location: /logs
+
+# Your credentials on the vault
+credentials: "{{ lookup('hashi_vault', 'secret={{ posthog_secret_path }}', url=VAULT_ADDR, token=VAULT_TOKEN) }}"
