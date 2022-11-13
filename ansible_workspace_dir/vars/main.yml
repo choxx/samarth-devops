@@ -212,5 +212,15 @@ airflow_worker_logs: /mydata/logs/airflow-worker
 force_reload_airflow_worker_service: true
 airflow_worker_secret_path: "{{ airflow_webserver_secret_path }}"  # using same secret as webserver
 
+# For Sentry
+service_sentry_service: sentry-service
+service_sentry_host_port: 9008
+service_sentry_docker_port: 9000
+network_alias_sentry_service: sentry-service
+image_sentry_service: sentry-service
+sentry_logs: /mydata/logs/sentry
+force_reload_sentry_service: true
+sentry_secret_path: kv/data/samarth/sentry
+
 VAULT_TOKEN: #VAULT TOKEN
 VAULT_ADDR: #VAULT ADDR
