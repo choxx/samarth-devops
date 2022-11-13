@@ -1,0 +1,28 @@
+---
+# vars file for deploy-sb-ext
+# For script
+template_compose_file_name: compose-file.j2
+template_env_file_name: env.j2
+compose_file_name: "{{ service_minio }}.yml"
+env_file_name: "{{ service_minio }}.env"
+compose_file_deployment_location: "{{ compose_files_dir }}/{{ compose_file_name }}"
+env_file_deployment_location: "{{ env_files_dir }}/{{ env_file_name }}"
+user_friendly_name: minio_service
+
+
+host_address_port: "{{ service_minio_host_address_port }}"
+docker_address_port: "{{ service_minio_docker_address_port }}"
+host_console_port: "{{ service_minio_host_console_port }}"
+docker_console_port: "{{ service_minio_docker_console_port }}"
+tag: "{{ tags_minio_service }}"
+replicas: "{{ service_replicas_minio_service }}"
+network_alias_name: "{{ network_alias_minio_service }}"
+docker_service_stack_name: samarth
+docker_service_name: "{{ service_minio }}"
+force_reload: "{{ force_reload_minio_service }}"
+host_logs_location: "{{ minio_logs }}"
+docker_logs_location: /logs
+
+DOCKER_HUB_IMAGE: quay.io/minio/minio:{{ tag }}
+# Your credentials on the vault
+credentials: "{{ lookup('hashi_vault', 'secret={{ minio_secret_path }}', url=VAULT_ADDR, token=VAULT_TOKEN) }}"
