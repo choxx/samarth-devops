@@ -212,5 +212,17 @@ airflow_worker_logs: /mydata/logs/airflow-worker
 force_reload_airflow_worker_service: true
 airflow_worker_secret_path: "{{ airflow_webserver_secret_path }}"  # using same secret as webserver
 
+# For Minio
+service_minio: minio-service
+network_alias_minio_service: minio-service
+image_minio_service: quay.io/minio/minio
+service_minio_host_address_port: 9000
+service_minio_docker_address_port: 9000
+service_minio_host_console_port: 9090
+service_minio_docker_console_port: 9090
+minio_logs: /mydata/logs/minio
+force_reload_minio_service: true
+minio_secret_path: kv/data/samarth/minio
+
 VAULT_TOKEN: #VAULT TOKEN
 VAULT_ADDR: #VAULT ADDR
