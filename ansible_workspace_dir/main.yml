@@ -52,4 +52,5 @@
       tags: [deploy-airflow-scheduler]
     - role: deploy-airflow-worker
       tags: [deploy-airflow-worker]
-
+    - role: deploy-sentry
+      tags: [deploy-sentry]
