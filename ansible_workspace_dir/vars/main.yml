@@ -10,6 +10,16 @@ esamwad_backend_logs: /mydata/logs/esamwad-backend
 force_reload_esmawad_backend_service: true
 esamwad_secret_path: kv/data/samarth/esamwad-backend
 
+# For Esamwad Hasura
+service_esamwad_hasura_service: esamwad_hasura-service
+service_esamwad_hasura_host_port: 8080
+service_esamwad_hasura_docker_port: 8080
+network_alias_esamwad_hasura_service: esamwad_hasura-service
+image_esamwad_hasura_service: samarth-esamwad_hasura-service
+esamwad_hasura_logs: /mydata/logs/esamwad_hasura
+force_reload_esamwad_hasura_service: true
+esamwad_hasura_secret_path: kv/data/samarth/esamwad-hasura
+
 service_user_service: user-service
 service_user_host_port: 3006
 service_user_docker_port: 3000
