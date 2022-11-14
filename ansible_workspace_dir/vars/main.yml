@@ -172,9 +172,46 @@ service_templater_host_port: 3007
 service_templater_docker_port: 3000
 network_alias_templater_service: templater-service
 image_templater_service: templater-service
-templater_logs: /mydata/logs/yaus-web
+templater_logs: /mydata/logs/templater
 force_reload_templater_service: true
 templater_secret_path: kv/data/samarth/templater
+
+
+# For Posthog Clickhouse
+service_posthog_clickhouse: posthog_clickhouse
+network_alias_posthog_clickhouse_service: posthog_clickhouse-service
+image_posthog_clickhouse_service: clickhouse
+posthog_clickhouse_logs: /mydata/logs/posthog-clickhouse
+force_reload_posthog_clickhouse_service: true
+
+# For Posthog Kafka
+service_posthog_kafka_service: posthog_kafka-service
+network_alias_posthog_kafka_service: posthog_kafka-service
+posthog_kafka_logs: /mydata/logs/posthog-kafka
+force_reload_posthog_kafka_service: true
+
+# For Posthog Zookeeper
+service_posthog_zookeeper_service: posthog_zookeeper-service
+network_alias_posthog_zookeeper_service: posthog_zookeeper-service
+posthog_zookeeper_logs: /mydata/logs/posthog-zookeeper
+force_reload_posthog_zookeeper_service: true
+
+# For Posthog Object Storage
+service_posthog_object_storage_service: posthog_object_storage-service
+network_alias_posthog_object_storage_service: posthog_object_storage-service
+posthog_object_storage_logs: /mydata/logs/posthog-object_storage
+force_reload_posthog_object_storage_service: true
+posthog_object_storage_secret_path: kv/data/samarth/posthog
+
+# For Posthog
+service_posthog: posthog-service
+service_posthog_host_port: 8023
+service_posthog_docker_port: 8000
+network_alias_posthog_service: posthog-service
+image_posthog_service: posthog
+posthog_logs: /mydata/logs/posthog
+force_reload_posthog_service: true
+posthog_secret_path: kv/data/samarth/posthog
 
 # For Airflow Webserver
 service_airflow_webserver: airflow_webserver-service
@@ -234,6 +271,7 @@ image_sentry_service: sentry-service
 sentry_logs: /mydata/logs/sentry
 force_reload_sentry_service: true
 sentry_secret_path: kv/data/samarth/sentry
+
 
 VAULT_TOKEN: #VAULT TOKEN
 VAULT_ADDR: #VAULT ADDR

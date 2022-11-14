@@ -1,0 +1,24 @@
+version: '3.7'
+
+services:
+  {{ docker_service_name }}:
+    image: {{ docker_hub_url }}/{{ image_name }}:{{ tag }}
+    hostname: "{{ docker_service_name }}"
+    volumes:
+      - clickhouse-data:/var/lib/clickhouse
+    
+    networks:
+      application_default:
+        aliases:
+            - {{ network_alias_name }}
+
+    env_file:
+      - {{ env_file_deployment_location }}
+    restart: on-failure
+
+networks:
+  application_default:
+    external: true
+
+volumes:
+  clickhouse-data:
