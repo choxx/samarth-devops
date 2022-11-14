@@ -66,4 +66,6 @@
       tags: [deploy-minio]
     - role: deploy-sentry
       tags: [deploy-sentry]
+    - role: deploy-esamwad-hasura
+      tags: [deploy-esamwad-hasura]
 
