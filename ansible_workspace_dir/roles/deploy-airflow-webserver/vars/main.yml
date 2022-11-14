@@ -1,0 +1,25 @@
+---
+# vars file for deploy-sb-ext
+# For script
+template_compose_file_name: compose-file.j2
+template_env_file_name: env.j2
+compose_file_name: "{{ service_airflow_webserver }}.yml"
+env_file_name: "{{ service_airflow_webserver }}.env"
+compose_file_deployment_location: "{{ compose_files_dir }}/{{ compose_file_name }}"
+env_file_deployment_location: "{{ env_files_dir }}/{{ env_file_name }}"
+user_friendly_name: airflow-webserver
+
+docker_port: "{{ service_airflow_webserver_docker_port }}"
+host_port: "{{ service_airflow_webserver_host_port }}"
+image_name: "{{ image_airflow_webserver_service }}"
+tag: "{{ tags_airflow_webserver_service }}"
+replicas: "{{ service_replicas_airflow_webserver_service }}"
+network_alias_name: "{{ network_alias_airflow_webserver_service }}"
+docker_service_stack_name: samarth
+docker_service_name: "{{ service_airflow_webserver }}"
+force_reload: "{{ force_reload_airflow_webserver_service }}"
+host_logs_location: "{{ airflow_webserver_service_logs }}"
+docker_logs_location: /logs
+
+# Your credentials on the vault
+credentials: "{{ lookup('hashi_vault', 'secret={{ airflow_webserver_secret_path }}', url=VAULT_ADDR, token=VAULT_TOKEN) }}"

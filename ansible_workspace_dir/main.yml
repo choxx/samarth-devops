@@ -54,4 +54,16 @@
       tags: [deploy-posthog-object-storage]
     - role: deploy-posthog
       tags: [deploy-posthog]
+    - role: deploy-airflow-webserver
+      tags: [deploy-airflow-webserver]
+    - role: deploy-airflow-flower
+      tags: [deploy-airflow-flower]
+    - role: deploy-airflow-scheduler
+      tags: [deploy-airflow-scheduler]
+    - role: deploy-airflow-worker
+      tags: [deploy-airflow-worker]
+    - role: deploy-minio
+      tags: [deploy-minio]
+    - role: deploy-sentry
+      tags: [deploy-sentry]
 
