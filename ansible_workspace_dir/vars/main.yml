@@ -20,6 +20,16 @@ esamwad_hasura_logs: /mydata/logs/esamwad_hasura
 force_reload_esamwad_hasura_service: true
 esamwad_hasura_secret_path: kv/data/samarth/esamwad-hasura
 
+# For Esamwad PgBouncer
+service_esamwad_pgbouncer_service: esamwad_pgbouncer-service
+service_esamwad_pgbouncer_host_port: 6432
+service_esamwad_pgbouncer_docker_port: 6432
+network_alias_esamwad_pgbouncer_service: esamwad_pgbouncer-service
+image_esamwad_pgbouncer_service: esamwad-pgbouncer
+esamwad_pgbouncer_logs: /mydata/logs/esamwad_pgbouncer
+force_reload_esamwad_pgbouncer_service: true
+esamwad_pgbouncer_secret_path: kv/data/samarth/esamwad-pgbouncer
+
 service_user_service: user-service
 service_user_host_port: 3006
 service_user_docker_port: 3000

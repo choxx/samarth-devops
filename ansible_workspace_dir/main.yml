@@ -68,4 +68,6 @@
       tags: [deploy-sentry]
     - role: deploy-esamwad-hasura
       tags: [deploy-esamwad-hasura]
+    - role: deploy-esamwad-pgbouncer
+      tags: [deploy-esamwad-pgbouncer]
 
