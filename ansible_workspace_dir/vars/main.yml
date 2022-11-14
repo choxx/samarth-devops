@@ -31,8 +31,8 @@ force_reload_esamwad_pgbouncer_service: true
 esamwad_pgbouncer_secret_path: kv/data/samarth/esamwad-pgbouncer
 
 service_user_service: user-service
-service_user_host_port: 3006
-service_user_docker_port: 3000
+service_user_service_host_port: 3006
+service_user_service_docker_port: 3000
 network_alias_user_service: user-service
 image_user_service: user-service
 user_service_logs: /mydata/logs/user-service
@@ -268,7 +268,6 @@ image_airflow_worker_service: airflow
 airflow_worker_logs: /mydata/logs/airflow-worker
 force_reload_airflow_worker_service: true
 airflow_worker_secret_path: "{{ airflow_webserver_secret_path }}"  # using same secret as webserver
-
 
 # For Minio
 service_minio: minio-service
