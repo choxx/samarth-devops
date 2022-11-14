@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+
+  {{ docker_service_name }}:
+    image: {{ DOCKER_HUB_IMAGE }}
+    volumes:
+      - object_storage:/data
+    environment:
+      MINIO_ROOT_USER: {{ credentials.MINIO_ROOT_USER }}
+      MINIO_ROOT_PASSWORD: {{ credentials.MINIO_ROOT_PASSWORD }}
+    command: 'server --address ":{{ host_address_port }}" --console-address ":{{ host_console_port }}" /data'
+    ports:
+      - {{ host_address_port }}:{{ docker_address_port }}
+      - {{ host_console_port }}:{{ docker_console_port }}
+
+    networks:
+      application_default:
+        aliases:
+            - {{ network_alias_name }}
+
+networks:
+  application_default:
+    external: true
+
+volumes:
+  object_storage:
