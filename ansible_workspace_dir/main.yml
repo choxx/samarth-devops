@@ -54,4 +54,6 @@
       tags: [deploy-airflow-worker]
     - role: deploy-minio
       tags: [deploy-minio]
+    - role: deploy-sentry
+      tags: [deploy-sentry]
 
