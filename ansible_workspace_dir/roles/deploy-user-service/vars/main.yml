@@ -7,7 +7,7 @@ compose_file_name: "{{ service_user_service }}.yml"
 env_file_name: "{{ service_user_service }}.env"
 compose_file_deployment_location: "{{ compose_files_dir }}/{{ compose_file_name }}"
 env_file_deployment_location: "{{ env_files_dir }}/{{ env_file_name }}"
-user_friendly_name: user service
+user_friendly_name: user-service
 
 docker_port: "{{ service_user_docker_port }}"
 host_port: "{{ service_user_host_port }}"
@@ -21,4 +21,5 @@ force_reload: "{{ force_reload_user_service }}"
 host_logs_location: "{{ user_service_logs }}"
 docker_logs_location: /logs
 
+# Your credentials on the vault
 credentials: "{{ lookup('hashi_vault', 'secret={{ user_service_secret_path }}', url=VAULT_ADDR, token=VAULT_TOKEN) }}"
