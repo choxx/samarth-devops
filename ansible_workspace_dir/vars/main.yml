@@ -204,6 +204,14 @@ image_posthog_clickhouse_service: clickhouse
 posthog_clickhouse_logs: /mydata/logs/posthog-clickhouse
 force_reload_posthog_clickhouse_service: true
 
+# For Posthog DB (Pgbouncer)
+service_posthog_db: posthog_db
+network_alias_posthog_db_service: posthog_db-service
+image_posthog_db_service: posthog-pgbouncer
+posthog_db_logs: /mydata/logs/posthog-db
+force_reload_posthog_db_service: true
+posthog_db_secret_path: kv/data/samarth/posthog-pgbouncer
+
 # For Posthog Kafka
 service_posthog_kafka_service: posthog_kafka-service
 network_alias_posthog_kafka_service: posthog_kafka-service

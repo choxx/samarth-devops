@@ -70,4 +70,5 @@
       tags: [deploy-esamwad-hasura]
     - role: deploy-esamwad-pgbouncer
       tags: [deploy-esamwad-pgbouncer]
-
+    - role: deploy-posthog-db
+      tags: [ deploy-posthog-db ]
