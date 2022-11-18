@@ -299,6 +299,16 @@ sentry_logs: /mydata/logs/sentry
 force_reload_sentry_service: true
 sentry_secret_path: kv/data/samarth/sentry
 
+# UCI APIs
+service_uci_apis: uci-apis
+service_uci_apis_host_port: 9999
+service_uci_apis_docker_port: 9999
+network_alias_uci_apis_service: uci-apis
+image_uci_apis_service: uci-apis
+uci_apis_logs: /mydata/logs/uci-apis
+force_reload_uci_apis_service: true
+service_uci_apis_hostname: uci-api-service
+uci_apis_secret_path: kv/data/samarth/uci
 
 VAULT_TOKEN: #VAULT TOKEN
 VAULT_ADDR: #VAULT ADDR
