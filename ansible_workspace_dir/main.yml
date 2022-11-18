@@ -78,3 +78,5 @@
       tags: [ deploy-uci-fusion-auth ]
     - role: deploy-uci-api-db-hasura
       tags: [ deploy-uci-api-db-hasura ]
+    - role: deploy-uci-zookeeper
+      tags: [ deploy-uci-zookeeper ]
