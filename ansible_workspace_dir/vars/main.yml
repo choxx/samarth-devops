@@ -310,5 +310,15 @@ force_reload_uci_apis_service: true
 service_uci_apis_hostname: uci-api-service
 uci_apis_secret_path: kv/data/samarth/uci
 
+# UCI Fusionauth
+service_uci_fusion_auth_service: uci-fusion-auth-service
+service_uci_fusion_auth_host_port: 9012
+service_uci_fusion_auth_docker_port: 9011
+network_alias_uci_fusion_auth_service: uci-fusion-auth-service
+image_uci_fusion_auth_service: samarth-uci-fusion-auth-service
+uci_fusion_auth_logs: /mydata/logs/fusion-auth
+force_reload_uci_fusion_auth_service: true
+uci_fusion_auth_secret_path: "{{ uci_apis_secret_path }}" # use common vault for UCI
+
 VAULT_TOKEN: #VAULT TOKEN
 VAULT_ADDR: #VAULT ADDR
