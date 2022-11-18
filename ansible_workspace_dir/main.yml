@@ -80,3 +80,5 @@
       tags: [ deploy-uci-api-db-hasura ]
     - role: deploy-uci-zookeeper
       tags: [ deploy-uci-zookeeper ]
+    - role: deploy-uci-kafka
+      tags: [ deploy-uci-kafka ]
