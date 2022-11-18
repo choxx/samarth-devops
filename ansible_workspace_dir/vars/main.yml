@@ -331,6 +331,13 @@ force_reload_uci_api_db_hasura_service: true
 uci_api_db_hasura_secret_path: "{{ uci_apis_secret_path }}" # use common vault for UCI
 service_uci_api_db_hasura_hostname: uci-api-db-gql
 
+# For UCI Zookeeper
+service_uci_zookeeper_service: uci_zookeeper-service
+service_uci_zookeeper_host_port: 2181
+service_uci_zookeeper_docker_port: 2181
+network_alias_uci_zookeeper_service: uci_zookeeper-service
+uci_zookeeper_logs: /mydata/logs/uci-zookeeper
+force_reload_uci_zookeeper_service: true
 
 VAULT_TOKEN: #VAULT TOKEN
 VAULT_ADDR: #VAULT ADDR

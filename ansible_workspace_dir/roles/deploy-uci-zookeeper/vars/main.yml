@@ -1,0 +1,26 @@
+---
+# vars file for deploy-sb-ext
+# For script
+template_compose_file_name: compose-file.j2
+template_env_file_name: env.j2
+compose_file_name: "{{ service_uci_zookeeper_service }}.yml"
+env_file_name: "{{ service_uci_zookeeper_service }}.env"
+compose_file_deployment_location: "{{ compose_files_dir }}/{{ compose_file_name }}"
+env_file_deployment_location: "{{ env_files_dir }}/{{ env_file_name }}"
+user_friendly_name: uci_zookeeper_service
+
+docker_port: "{{ service_uci_zookeeper_docker_port }}"
+host_port: "{{ service_uci_zookeeper_host_port }}"
+image_name: "{{ image_uci_zookeeper_service }}"
+tag: "{{ tags_uci_zookeeper_service }}"
+replicas: "{{ service_replicas_uci_zookeeper_service }}"
+network_alias_name: "{{ network_alias_uci_zookeeper_service }}"
+docker_service_stack_name: samarth
+docker_service_name: "{{ service_uci_zookeeper_service }}"
+force_reload: "{{ force_reload_uci_zookeeper_service }}"
+host_logs_location: "{{ uci_zookeeper_logs }}"
+docker_logs_location: /logs
+
+DOCKER_HUB_IMAGE: wurstmeister/zookeeper:{{ tag }}
+# Your credentials on the vault
+credentials: "{{ lookup('hashi_vault', 'secret={{ uci_zookeeper_secret_path }}', url=VAULT_ADDR, token=VAULT_TOKEN) }}"
