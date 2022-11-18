@@ -15,7 +15,7 @@
     <hudson.tasks.Shell>
       <command>#!/bin/bash
 cd /home/samarth-devops/ansible_workspace_dir
-ansible-playbook -i inventory/hosts --extra-vars  &quot;tag=latest deploy_host_name=dev&quot; main.yml --tag deploy-uci-kafka-stack</command>
+ansible-playbook -i inventory/hosts --extra-vars  &quot;tag=latest deploy_host_name=dev&quot; main.yml --tag deploy-uci-core-stack</command>
       <configuredLocalRules/>
     </hudson.tasks.Shell>
   </builders>

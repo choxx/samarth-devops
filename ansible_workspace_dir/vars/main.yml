@@ -363,5 +363,12 @@ uci_kafka_stack_logs: /mydata/logs/uci-kafka-stack
 force_reload_uci_kafka_stack_service: true
 uci_kafka_stack_secret_path: "{{ uci_apis_secret_path }}" # use common vault for UCI
 
+# For UCI Core Stack
+service_uci_core_stack_service: uci_core_stack-service
+network_alias_uci_core_stack_service: uci_core_stack-service
+uci_core_stack_logs: /mydata/logs/uci-core-stack
+force_reload_uci_core_stack_service: true
+uci_core_stack_secret_path: "{{ uci_apis_secret_path }}" # use common vault for UCI
+
 VAULT_TOKEN: #VAULT TOKEN
 VAULT_ADDR: #VAULT ADDR
