@@ -72,3 +72,5 @@
       tags: [deploy-esamwad-pgbouncer]
     - role: deploy-posthog-db
       tags: [ deploy-posthog-db ]
+    - role: deploy-uci-apis
+      tags: [ deploy-uci-apis ]
