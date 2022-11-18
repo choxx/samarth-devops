@@ -320,5 +320,17 @@ uci_fusion_auth_logs: /mydata/logs/fusion-auth
 force_reload_uci_fusion_auth_service: true
 uci_fusion_auth_secret_path: "{{ uci_apis_secret_path }}" # use common vault for UCI
 
+# For UCI APIs DB Hasura
+service_uci_api_db_hasura_service: uci_api_db_hasura-service
+service_uci_api_db_hasura_host_port: 15004
+service_uci_api_db_hasura_docker_port: 8080
+network_alias_uci_api_db_hasura_service: uci_api_db_hasura-service
+image_uci_api_db_hasura_service: samarth-uci_api_db_hasura-service
+uci_api_db_hasura_logs: /mydata/logs/uci_api_db_hasura
+force_reload_uci_api_db_hasura_service: true
+uci_api_db_hasura_secret_path: "{{ uci_apis_secret_path }}" # use common vault for UCI
+service_uci_api_db_hasura_hostname: uci-api-db-gql
+
+
 VAULT_TOKEN: #VAULT TOKEN
 VAULT_ADDR: #VAULT ADDR

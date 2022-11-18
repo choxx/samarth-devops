@@ -20,7 +20,7 @@ docker_service_name: "{{ service_uci_apis }}"
 force_reload: "{{ force_reload_uci_apis_service }}"
 host_logs_location: "{{ uci_apis_service_logs }}"
 docker_logs_location: /logs
-docker_hostname: "{{ service_uci_apis_hostname }}"
+docker_service_hostname: "{{ service_uci_apis_hostname }}"
 
 # Your credentials on the vault
 credentials: "{{ lookup('hashi_vault', 'secret={{ uci_apis_secret_path }}', url=VAULT_ADDR, token=VAULT_TOKEN) }}"
