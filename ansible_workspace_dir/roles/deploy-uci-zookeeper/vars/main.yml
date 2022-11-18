@@ -17,6 +17,7 @@ replicas: "{{ service_replicas_uci_zookeeper_service }}"
 network_alias_name: "{{ network_alias_uci_zookeeper_service }}"
 docker_service_stack_name: samarth
 docker_service_name: "{{ service_uci_zookeeper_service }}"
+docker_service_hostname: "{{ service_uci_zookeeper_hostname }}"
 force_reload: "{{ force_reload_uci_zookeeper_service }}"
 host_logs_location: "{{ uci_zookeeper_logs }}"
 docker_logs_location: /logs

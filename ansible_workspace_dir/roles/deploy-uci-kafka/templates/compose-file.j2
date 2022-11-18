@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+
+  {{ docker_service_name }}:
+    image: {{ DOCKER_HUB_IMAGE }}
+    hostname: "{{ docker_service_hostname }}"
+    environment:
+      KAFKA_LISTENERS: INSIDE://:9092,OUTSIDE://:9094
+      KAFKA_ADVERTISED_LISTENERS: INSIDE://:9092,OUTSIDE://dev.uci.samagra.io:9094
+      KAFKA_ZOOKEEPER_CONNECT: {{ service_uci_zookeeper_hostname }}:2181
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:SASL_PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
+      KAFKA_SASL_ENABLED_MECHANISMS: PLAIN
+      KAFKA_SASL_MECHANISM_INTER_BROKER_PROTOCOL: PLAIN
+      KAFKA_OPTS: "-Djava.security.auth.login.config=/etc/kafka/kafka_server_jaas.conf"
+      KAFKA_LOG_DIRS: ./data00/kafka-logs
+    volumes:
+      - kafka-data00:/kafka
+      - kafka-data:/var/lib/kafka:Z
+
+    {% if publish_ports == true %}
+
+    ports:
+      - {{ host_port }}:{{ docker_port }}
+    {% endif %}
+
+    networks:
+      application_default:
+        aliases:
+            - {{ network_alias_name }}
+
+networks:
+  application_default:
+    external: true
+
+volumes:
+  kafka-data00:
+  kafka-data:

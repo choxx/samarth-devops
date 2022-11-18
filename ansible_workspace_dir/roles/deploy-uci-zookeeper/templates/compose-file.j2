@@ -4,7 +4,7 @@ services:
 
   {{ docker_service_name }}:
     image: {{ DOCKER_HUB_IMAGE }}
-    hostname: "{{ docker_service_name }}"
+    hostname: "{{ docker_service_hostname }}"
     {% if publish_ports == true %}
 
     ports:
