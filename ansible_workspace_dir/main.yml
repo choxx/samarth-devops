@@ -86,3 +86,5 @@
       tags: [ deploy-uci-schema-registry ]
     - role: deploy-uci-kafka-stack
       tags: [ deploy-uci-kafka-stack ]
+    - role: deploy-uci-core-stack
+      tags: [ deploy-uci-core-stack ]
