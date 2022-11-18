@@ -3,7 +3,7 @@ version: '3.7'
 services:
   {{ docker_service_name }}:
     image: {{ docker_hub_url }}/{{ image_name }}:{{ tag }}
-    hostname: {{ docker_service_name }}
+    hostname: {{ docker_service_hostname }}
     env_file:
       - {{ env_file_deployment_location }}
     command:
@@ -13,7 +13,7 @@ services:
         curl -L https://github.com/hasura/graphql-engine/raw/stable/cli/get.sh | bash
         cd migrations/uci-core/
         pwd
-        hasura migrate apply --endpoint http://uci-api-db-gql:8080
+        hasura migrate apply --endpoint http://{{ service_api_db_hasura_hostname }}:8080
         echo "Server Started"
         cd ../../
         pm2-runtime app.js
