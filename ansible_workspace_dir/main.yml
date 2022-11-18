@@ -74,3 +74,5 @@
       tags: [ deploy-posthog-db ]
     - role: deploy-uci-apis
       tags: [ deploy-uci-apis ]
+    - role: deploy-uci-fusion-auth
+      tags: [ deploy-uci-fusion-auth ]
