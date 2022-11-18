@@ -350,5 +350,11 @@ force_reload_uci_kafka_service: true
 service_uci_kafka_hostname: uci_kafka
 uci_kafka_secret_path: "{{ uci_apis_secret_path }}" # use common vault for UCI
 
+# For UCI Schema Registry
+service_uci_schema_registry : uci-schema-registry-service
+network_alias_uci_schema_registry : uci-schema-registry-service
+uci_schema_registry_logs: /mydata/logs/posthog-kafka
+force_reload_uci_schema_registry  : true
+
 VAULT_TOKEN: #VAULT TOKEN
 VAULT_ADDR: #VAULT ADDR

@@ -82,3 +82,5 @@
       tags: [ deploy-uci-zookeeper ]
     - role: deploy-uci-kafka
       tags: [ deploy-uci-kafka ]
+    - role: deploy-uci-schema-registry
+      tags: [ deploy-uci-schema-registry ]
