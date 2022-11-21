@@ -12,7 +12,7 @@ esamwad_secret_path: kv/data/samarth/esamwad-backend
 
 # For Esamwad Hasura
 service_esamwad_hasura_service: esamwad_hasura-service
-service_esamwad_hasura_host_port: 8080
+service_esamwad_hasura_host_port: 8081
 service_esamwad_hasura_docker_port: 8080
 network_alias_esamwad_hasura_service: esamwad_hasura-service
 image_esamwad_hasura_service: samarth-esamwad_hasura-service
@@ -49,7 +49,7 @@ force_reload_fusion_auth_service: true
 fusion_auth_secret_path: kv/data/samarth/fusion-auth
 
 service_fa_relay_service: fa-relay-service
-service_fa_relay_host_port: 8080
+service_fa_relay_host_port: 8082
 service_fa_relay_docker_port: 8080
 network_alias_fa_relay_service: fa-relay-service
 image_fa_relay_service: fa-relay
@@ -369,6 +369,16 @@ network_alias_uci_core_stack_service: uci_core_stack-service
 uci_core_stack_logs: /mydata/logs/uci-core-stack
 force_reload_uci_core_stack_service: true
 uci_core_stack_secret_path: "{{ uci_apis_secret_path }}" # use common vault for UCI
+
+# For UCI ODK
+service_uci_odk_service: uci_odk-service
+service_uci_odk_host_port: 8080
+service_uci_odk_docker_port: 8080
+network_alias_uci_odk_service: uci_odk-service
+image_uci_odk_service: uci_odk-service
+uci_odk_logs: /mydata/logs/uci_odk-service
+force_reload_uci_odk_service: true
+uci_odk_secret_path: "{{ uci_apis_secret_path }}" # use common vault for UCI
 
 VAULT_TOKEN: #VAULT TOKEN
 VAULT_ADDR: #VAULT ADDR

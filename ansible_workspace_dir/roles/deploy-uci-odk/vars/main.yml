@@ -1,0 +1,31 @@
+---
+# vars file for deploy-sb-ext
+# For script
+template_compose_file_name: compose-file.j2
+template_env_file_name: env.j2
+compose_file_name: "{{ service_uci_odk_service }}.yml"
+env_file_name: "{{ service_uci_odk_service }}.env"
+compose_file_deployment_location: "{{ compose_files_dir }}/{{ compose_file_name }}"
+env_file_deployment_location: "{{ env_files_dir }}/{{ env_file_name }}"
+user_friendly_name: uci_odk
+
+docker_port: "{{ service_uci_odk_docker_port }}"
+host_port: "{{ service_uci_odk_host_port }}"
+image_name: "{{ image_uci_odk_service }}"
+tag: "{{ tags_uci_odk_service }}"
+replicas: "{{ service_replicas_uci_odk_service }}"
+network_alias_name: "{{ network_alias_uci_odk_service }}"
+docker_service_stack_name: samarth
+docker_service_name: "{{ service_uci_odk_service }}"
+force_reload: "{{ force_reload_uci_odk_service }}"
+host_logs_location: "{{ uci_odk_service_logs }}"
+docker_logs_location: /logs
+
+credentials: "{{ lookup('hashi_vault', 'secret={{ uci_odk_secret_path }}', url=VAULT_ADDR, token=VAULT_TOKEN) }}"
+
+ODK_DB_USERNAME: "{{ credentials.ODK_DB_USERNAME }}"
+ODK_DB_SCHEMA: "{{ credentials.ODK_DB_SCHEMA }}"
+ODK_DB_PASSWORD: "{{ credentials.ODK_DB_PASSWORD }}"
+ODK_DB_NAME: "{{ credentials.ODK_DB_NAME }}"
+ODK_DB_PORT: "{{ credentials.ODK_DB_PORT }}"
+ODK_DB_URL: "{{ credentials.ODK_DB_URL }}"

@@ -78,13 +78,9 @@
       tags: [ deploy-uci-fusion-auth ]
     - role: deploy-uci-api-db-hasura
       tags: [ deploy-uci-api-db-hasura ]
-    - role: deploy-uci-zookeeper
-      tags: [ deploy-uci-zookeeper ]
-    - role: deploy-uci-kafka
-      tags: [ deploy-uci-kafka ]
-    - role: deploy-uci-schema-registry
-      tags: [ deploy-uci-schema-registry ]
     - role: deploy-uci-kafka-stack
       tags: [ deploy-uci-kafka-stack ]
     - role: deploy-uci-core-stack
       tags: [ deploy-uci-core-stack ]
+    - role: deploy-uci-odk
+      tags: [ deploy-uci-odk ]
