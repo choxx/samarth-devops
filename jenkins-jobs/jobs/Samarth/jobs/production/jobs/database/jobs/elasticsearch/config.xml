@@ -1,0 +1,71 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>username</name>
+          <defaultValue>root</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>password</name>
+          <defaultValue>root</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>database_name</name>
+          <description>This name should be unique</description>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>hostport</name>
+          <description>Specifies DB to any free port in this range</description>
+          <defaultValue>5000-6000</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>image_tag</name>
+          <description>Specify Database Image:Tag</description>
+          <defaultValue>docker.elastic.co/elasticsearch/elasticsearch:8.4.1</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>discovery_type</name>
+          <defaultValue>single-node</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>ES_JAVA_OPTS</name>
+          <defaultValue>-Xms128m -Xmx128m</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>network_host</name>
+          <defaultValue>0.0.0.0</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>cd /home/database_ansible
+ansible-playbook -i inventory/hosts --extra-vars  &quot;deploy_host_name=db username=&apos;${username}&apos; password=&apos;${password}&apos; hostport=&apos;${hostport}&apos; database_name=&apos;${database_name}&apos; image_tag=&apos;${image_tag}&apos; discovery_type=&apos;${discovery_type}&apos; ES_JAVA_OPTS=&apos;${ES_JAVA_OPTS}&apos; network_host=&apos;${network_host}&apos;&quot; main.yml --tag provision-elasticsearch
+</command>
+      <configuredLocalRules/>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>
