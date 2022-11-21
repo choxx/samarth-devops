@@ -15,6 +15,7 @@
               <string>mysql</string>
               <string>redis</string>
               <string>sqlite</string>
+              <string>elasticsearch</string>
             </a>
           </choices>
         </hudson.model.ChoiceParameterDefinition>
