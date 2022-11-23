@@ -86,3 +86,5 @@
       tags: [ deploy-uci-odk ]
     - role: deploy-uci-web-channel
       tags: [ deploy-uci-web-channel ]
+    - role: deploy-uci-admin
+      tags: [ deploy-uci-admin ]

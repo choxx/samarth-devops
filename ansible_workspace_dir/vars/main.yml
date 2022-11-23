@@ -391,5 +391,16 @@ force_reload_uci_web_channel_service: true
 service_uci_web_channel_hostname: uci-web-channel
 uci_web_channel_secret_path: kv/data/samarth/uci-web-channel
 
+# UCI Admin
+service_uci_admin: uci-admin
+service_uci_admin_host_port: 9097
+service_uci_admin_docker_port: 80
+network_alias_uci_admin_service: uci-admin
+image_uci_admin_service: uci-admin
+uci_admin_logs: /mydata/logs/uci-admin
+force_reload_uci_admin_service: true
+service_uci_admin_hostname: uci-admin
+uci_admin_secret_path: kv/data/samarth/uci-admin
+
 VAULT_TOKEN: #VAULT TOKEN
 VAULT_ADDR: #VAULT ADDR
