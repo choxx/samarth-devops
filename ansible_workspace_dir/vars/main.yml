@@ -380,5 +380,16 @@ uci_odk_logs: /mydata/logs/uci_odk-service
 force_reload_uci_odk_service: true
 uci_odk_secret_path: "{{ uci_apis_secret_path }}" # use common vault for UCI
 
+# UCI Web Channel
+service_uci_web_channel: uci-web-channel
+service_uci_web_channel_host_port: 9098
+service_uci_web_channel_docker_port: 80
+network_alias_uci_web_channel_service: uci-web-channel
+image_uci_web_channel_service: uci-web-channel
+uci_web_channel_logs: /mydata/logs/uci-web-channel
+force_reload_uci_web_channel_service: true
+service_uci_web_channel_hostname: uci-web-channel
+uci_web_channel_secret_path: kv/data/samarth/uci-web-channel
+
 VAULT_TOKEN: #VAULT TOKEN
 VAULT_ADDR: #VAULT ADDR
