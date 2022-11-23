@@ -88,3 +88,5 @@
       tags: [ deploy-uci-web-channel ]
     - role: deploy-uci-admin
       tags: [ deploy-uci-admin ]
+    - role: deploy-uci-transport-socket
+      tags: [ deploy-uci-transport-socket ]
