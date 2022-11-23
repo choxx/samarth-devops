@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+
+  {{ docker_service_name }}:
+    image: {{ DOCKER_HUB_IMAGE }}
+    environment:
+    environment:
+      - VIRTUAL_HOST={{ credentials.VIRTUAL_HOST }}
+      - VIRTUAL_PORT={{ credentials.VIRTUAL_PORT }}
+      - LETSENCRYPT_HOST={{ credentials.LETSENCRYPT_HOST }}
+      - LETSENCRYPT_EMAIL={{ credentials.LETSENCRYPT_EMAIL }}
+      - HASURA_GRAPHQL_PG_CONNECTIONS={{ credentials.HASURA_GRAPHQL_PG_CONNECTIONS }}
+      - HASURA_GRAPHQL_DATABASE_URL={{ credentials.HASURA_GRAPHQL_DATABASE_URL }}
+      - HASURA_GRAPHQL_ENABLE_CONSOLE={{ credentials.HASURA_GRAPHQL_ENABLE_CONSOLE }}
+      - HASURA_GRAPHQL_ENABLED_LOG_TYPES={{ credentials.HASURA_GRAPHQL_ENABLED_LOG_TYPES }}
+      - HASURA_GRAPHQL_ADMIN_SECRET={{ credentials.HASURA_GRAPHQL_ADMIN_SECRET }}
+      - 'HASURA_GRAPHQL_JWT_SECRET={{ credentials.HASURA_GRAPHQL_JWT_SECRET }}'
+    restart: always
+
+    {% if publish_ports == true %}
+
+    ports:
+      - {{ host_port }}:{{ docker_port }}
+
+    {% endif %}
+
+    networks:
+      application_default:
+        aliases:
+            - {{ network_alias_name }}
+
+networks:
+  application_default:
+    external: true

@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+
+  {{ docker_service_name }}:
+    image: {{ docker_hub_url }}/{{ image_name }}:{{ tag }}
+    hostname: "{{ docker_service_name }}"
+    environment:
+      DB_HOST: {{ credentials.DB_HOST }}
+      DB_USER: {{ credentials.DB_USER }}
+      DB_PASSWORD: {{ credentials.DB_PASSWORD }}
+      AUTH_FILE: {{ credentials.AUTH_FILE }}
+      AUTH_TYPE: {{ credentials.AUTH_TYPE }}
+      DB_port: {{ credentials.DB_port }}
+      POOL_MODE: {{ credentials.POOL_MODE }}
+      DEFAULT_POOL_SIZE: {{ credentials.DEFAULT_POOL_SIZE }}
+      MAX_CLIENT_CONN: {{ credentials.MAX_CLIENT_CONN }}
+      MAX_DB_CONNECTIONS: {{ credentials.MAX_DB_CONNECTIONS }}
+
+    {% if publish_ports == true %}
+
+    ports:
+      - {{ host_port }}:{{ docker_port }}
+
+    {% endif %}
+
+    networks:
+      application_default:
+        aliases:
+            - {{ network_alias_name }}
+
+networks:
+  application_default:
+    external: true
