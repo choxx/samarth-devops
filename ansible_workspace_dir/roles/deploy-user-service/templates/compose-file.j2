@@ -11,22 +11,6 @@ services:
       - {{ host_port }}:{{ docker_port }}
       
     {% endif %}
-
-    deploy:
-      placement:
-        constraints:
-          - node.role == {{ var_docker_deploy_node_type }} 
-      replicas: {{ replicas }}      
-      update_config:
-        parallelism: 1
-        delay: 0s
-        failure_action: rollback
-        order: start-first
-      rollback_config:
-        parallelism: 1
-        delay: 0s
-      restart_policy:
-        condition: on-failure
     
     networks:
       application_default:

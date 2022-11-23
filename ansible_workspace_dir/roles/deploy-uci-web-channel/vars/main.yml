@@ -1,0 +1,26 @@
+---
+# vars file for deploy-sb-ext
+# For script
+template_compose_file_name: compose-file.j2
+template_env_file_name: env.j2
+compose_file_name: "{{ service_uci_web_channel }}.yml"
+env_file_name: "{{ service_uci_web_channel }}.env"
+compose_file_deployment_location: "{{ compose_files_dir }}/{{ compose_file_name }}"
+env_file_deployment_location: "{{ env_files_dir }}/{{ env_file_name }}"
+user_friendly_name: uci-web-channel
+
+docker_port: "{{ service_uci_web_channel_docker_port }}"
+host_port: "{{ service_uci_web_channel_host_port }}"
+image_name: "{{ image_uci_web_channel_service }}"
+tag: "{{ tags_uci_web_channel_service }}"
+replicas: "{{ service_replicas_uci_web_channel_service }}"
+network_alias_name: "{{ network_alias_uci_web_channel_service }}"
+docker_service_stack_name: samarth
+docker_service_name: "{{ service_uci_web_channel }}"
+force_reload: "{{ force_reload_uci_web_channel_service }}"
+host_logs_location: "{{ uci_web_channel_service_logs }}"
+docker_logs_location: /logs
+docker_service_hostname: "{{ service_uci_web_channel_hostname }}"
+
+# Your credentials on the vault
+credentials: "{{ lookup('hashi_vault', 'secret={{ uci_web_channel_secret_path }}', url=VAULT_ADDR, token=VAULT_TOKEN) }}"

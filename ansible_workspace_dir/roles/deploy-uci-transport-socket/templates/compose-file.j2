@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+
+  {{ docker_service_name }}:
+    image: {{ DOCKER_HUB_IMAGE }}
+    environment:
+      REDIS_HOST: {{ credentials.UCI_ADMIN_REDIS_HOST }}
+      REDIS_PORT: {{ credentials.UCI_ADMIN_REDIS_PORT }}
+      SERVER_PORT: {{ docker_address_port }}
+      ADAPTER_URL: "http://{{ service_uci_core_stack_service }}_inbound:{{ credentials.INBOUND_INTERNAL_PORT }}/pwa/web"
+    ports:
+      - {{ host_port }}:{{ docker_port }}
+
+    networks:
+      application_default:
+        aliases:
+            - {{ network_alias_name }}
+
+networks:
+  application_default:
+    external: true
