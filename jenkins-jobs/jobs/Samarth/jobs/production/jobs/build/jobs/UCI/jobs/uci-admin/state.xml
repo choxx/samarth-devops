@@ -5,7 +5,7 @@
       <string>31fcccf6-9be5-4a00-9a58-cbb59922d722</string>
       <list>
         <jenkins.plugins.git.GitRemoteHeadRefAction plugin="git@4.12.1">
-          <remote>https://github.com/choxx/uci-admin.git</remote>
+          <remote>https://github.com/samagra-comms/uci-admin.git</remote>
           <name>main</name>
         </jenkins.plugins.git.GitRemoteHeadRefAction>
       </list>
