@@ -331,31 +331,6 @@ force_reload_uci_api_db_hasura_service: true
 uci_api_db_hasura_secret_path: "{{ uci_apis_secret_path }}" # use common vault for UCI
 service_uci_api_db_hasura_hostname: uci-api-db-gql
 
-# For UCI Zookeeper
-service_uci_zookeeper_service: uci_zookeeper-service
-service_uci_zookeeper_host_port: 2181
-service_uci_zookeeper_docker_port: 2181
-network_alias_uci_zookeeper_service: uci_zookeeper-service
-uci_zookeeper_logs: /mydata/logs/uci-zookeeper
-force_reload_uci_zookeeper_service: true
-service_uci_zookeeper_hostname: uci_zookeeper
-
-# For UCI Kafka
-service_uci_kafka_service: uci_kafka-service
-service_uci_kafka_host_port: 9094
-service_uci_kafka_docker_port: 9094
-network_alias_uci_kafka_service: uci_kafka-service
-uci_kafka_logs: /mydata/logs/uci-kafka
-force_reload_uci_kafka_service: true
-service_uci_kafka_hostname: uci_kafka
-uci_kafka_secret_path: "{{ uci_apis_secret_path }}" # use common vault for UCI
-
-# For UCI Schema Registry
-service_uci_schema_registry : uci-schema-registry-service
-network_alias_uci_schema_registry : uci-schema-registry-service
-uci_schema_registry_logs: /mydata/logs/posthog-kafka
-force_reload_uci_schema_registry  : true
-
 # For UCI Kafka Stack
 service_uci_kafka_stack_service: uci_kafka_stack-service
 network_alias_uci_kafka_stack_service: uci_kafka_stack-service
@@ -401,6 +376,17 @@ uci_admin_logs: /mydata/logs/uci-admin
 force_reload_uci_admin_service: true
 service_uci_admin_hostname: uci-admin
 uci_admin_secret_path: kv/data/samarth/uci-admin
+
+# UCI Transport Socket
+service_uci_transport_socket: uci-transport-socket
+service_uci_transport_socket_host_port: 3005
+service_uci_transport_socket_docker_port: 3005
+network_alias_uci_transport_socket_service: uci-transport-socket
+image_uci_transport_socket_service: uci-transport-socket
+uci_transport_socket_logs: /mydata/logs/uci-transport-socket
+force_reload_uci_transport_socket_service: true
+service_uci_transport_socket_hostname: uci-transport-socket
+uci_transport_socket_secret_path: "{{ uci_apis_secret_path }}" # use common vault for UCI
 
 VAULT_TOKEN: #VAULT TOKEN
 VAULT_ADDR: #VAULT ADDR
