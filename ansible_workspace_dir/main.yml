@@ -84,3 +84,5 @@
       tags: [ deploy-uci-core-stack ]
     - role: deploy-uci-odk
       tags: [ deploy-uci-odk ]
+    - role: deploy-uci-web-channel
+      tags: [ deploy-uci-web-channel ]
