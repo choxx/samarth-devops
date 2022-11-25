@@ -66,4 +66,5 @@
       tags: [deploy-minio]
     - role: deploy-sentry
       tags: [deploy-sentry]
-
+    - role: deploy-hashicorp-vault
+      tags: [deploy-hashicorp-vault]

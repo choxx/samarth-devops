@@ -48,6 +48,25 @@
           <defaultValue>0.0.0.0</defaultValue>
           <trim>false</trim>
         </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>private_interface</name>
+          <description>Private Network Inteface Name</description>
+          <defaultValue>eth1</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>database_group</name>
+          <description>Select which database server to deploy this DB to.</description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>db[0]</string>
+              <string>db[1]</string>
+              <string>db[2]</string>
+              <string>db[3]</string>
+              <string>db[4]</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
   </properties>
@@ -61,7 +80,7 @@
   <builders>
     <hudson.tasks.Shell>
       <command>cd /home/database_ansible
-ansible-playbook -i inventory/hosts --extra-vars  &quot;deploy_host_name=db username=&apos;${username}&apos; password=&apos;${password}&apos; hostport=&apos;${hostport}&apos; database_name=&apos;${database_name}&apos; image_tag=&apos;${image_tag}&apos; discovery_type=&apos;${discovery_type}&apos; ES_JAVA_OPTS=&apos;${ES_JAVA_OPTS}&apos; network_host=&apos;${network_host}&apos;&quot; main.yml --tag provision-elasticsearch
+ansible-playbook -i inventory/hosts --extra-vars  &quot;deploy_host_name=&apos;${database_group}&apos; username=&apos;${username}&apos; password=&apos;${password}&apos; hostport=&apos;${hostport}&apos; database_name=&apos;${database_name}&apos; image_tag=&apos;${image_tag}&apos; discovery_type=&apos;${discovery_type}&apos; ES_JAVA_OPTS=&apos;${ES_JAVA_OPTS}&apos; network_host=&apos;${network_host}&apos; private_interface=&apos;${private_interface}&apos;&quot; main.yml --tag provision-elasticsearch
 </command>
       <configuredLocalRules/>
     </hudson.tasks.Shell>

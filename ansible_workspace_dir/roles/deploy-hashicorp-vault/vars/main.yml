@@ -1,0 +1,3 @@
+---
+# vars file for deploy-hashicorp-vault
+config_file_location: /opt/config.hcl
