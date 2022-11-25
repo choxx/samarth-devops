@@ -2,7 +2,24 @@
 <com.cloudbees.hudson.plugins.folder.Folder plugin="cloudbees-folder@6.758.vfd75d09eea_a_1">
   <actions/>
   <description></description>
-  <properties/>
+  <properties>
+    <com.cloudbees.hudson.plugins.folder.properties.FolderCredentialsProvider_-FolderCredentialsProperty>
+      <domainCredentialsMap class="hudson.util.CopyOnWriteMap$Hash">
+        <entry>
+          <com.cloudbees.plugins.credentials.domains.Domain plugin="credentials@1189.vf61b_a_5e2f62e">
+            <specifications/>
+          </com.cloudbees.plugins.credentials.domains.Domain>
+          <java.util.concurrent.CopyOnWriteArrayList>
+            <org.jenkinsci.plugins.plaincredentials.impl.StringCredentialsImpl plugin="plain-credentials@139.ved2b_9cf7587b">
+              <id>test</id>
+              <description>test</description>
+              <secret>{AQAAABAAAAAQ6DcXwxu/BT8cJS1CKJpfsYVCGwFya6iuO4gpSMCHzm0=}</secret>
+            </org.jenkinsci.plugins.plaincredentials.impl.StringCredentialsImpl>
+          </java.util.concurrent.CopyOnWriteArrayList>
+        </entry>
+      </domainCredentialsMap>
+    </com.cloudbees.hudson.plugins.folder.properties.FolderCredentialsProvider_-FolderCredentialsProperty>
+  </properties>
   <folderViews class="com.cloudbees.hudson.plugins.folder.views.DefaultFolderViewHolder">
     <views>
       <hudson.model.AllView>

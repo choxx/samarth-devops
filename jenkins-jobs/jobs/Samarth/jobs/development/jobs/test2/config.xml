@@ -1,0 +1,76 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job@1239.v71b_b_a_124a_725">
+  <actions>
+    <org.jenkinsci.plugins.workflow.multibranch.JobPropertyTrackerAction plugin="workflow-multibranch@716.vc692a_e52371b_">
+      <jobPropertyDescriptors>
+        <string>hudson.model.ParametersDefinitionProperty</string>
+      </jobPropertyDescriptors>
+    </org.jenkinsci.plugins.workflow.multibranch.JobPropertyTrackerAction>
+  </actions>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>docker_repo</name>
+          <description>Docker Image Name</description>
+          <defaultValue>esamwad-backend</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>docker_server</name>
+          <description>Docker Registry URL</description>
+          <defaultValue>localhost:5000</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2802.v5ea_628154b_c2">
+    <script>node {
+    
+withCredentials([string(credentialsId: &apos;test&apos;, variable: &apos;test&apos;)]) {
+    echo &quot;test -&gt; $test&quot;
+}
+
+    properties([
+        parameters([
+            string(name: &apos;docker_repo&apos;, defaultValue: ${test}, description: &apos;Docker Image Name&apos;),
+            string(name: &apos;docker_server&apos;, defaultValue: &apos;localhost:5000&apos;, description: &apos;Docker Registry URL&apos;),
+
+        ])
+    ])
+    
+
+
+    def mvnHome
+    stage(&apos;Preparation&apos;) { // for display purposes
+        // Get some code from a GitHub repository
+        git &apos;https://github.com/jglick/simple-maven-project-with-tests.git&apos;
+        // Get the Maven tool.
+        // ** NOTE: This &apos;M3&apos; Maven tool must be configured
+        // **       in the global configuration.
+        mvnHome = tool &apos;M3&apos;
+    }
+    stage(&apos;Build&apos;) {
+        // Run the maven build
+        withEnv([&quot;MVN_HOME=$mvnHome&quot;]) {
+            if (isUnix()) {
+                sh &apos;&quot;$MVN_HOME/bin/mvn&quot; -Dmaven.test.failure.ignore clean package&apos;
+            } else {
+                bat(/&quot;%MVN_HOME%\bin\mvn&quot; -Dmaven.test.failure.ignore clean package/)
+            }
+        }
+    }
+    stage(&apos;Results&apos;) {
+        junit &apos;**/target/surefire-reports/TEST-*.xml&apos;
+        archiveArtifacts &apos;target/*.jar&apos;
+    }
+}
+</script>
+    <sandbox>true</sandbox>
+  </definition>
+  <triggers/>
+  <disabled>false</disabled>
+</flow-definition>

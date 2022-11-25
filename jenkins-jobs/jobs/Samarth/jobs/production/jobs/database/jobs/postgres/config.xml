@@ -33,6 +33,24 @@
           <defaultValue>postgres:latest</defaultValue>
           <trim>false</trim>
         </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>private_interface</name>
+          <description>Private Network Interface</description>
+          <defaultValue>eth1</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>database_group</name>
+          <description>Database server to be deployed to</description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>db[0]</string>
+              <string>db[1]</string>
+              <string>db[2]</string>
+              <string>db[3]</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
   </properties>
@@ -46,7 +64,7 @@
   <builders>
     <hudson.tasks.Shell>
       <command>cd /home/database_ansible
-ansible-playbook -i inventory/hosts --extra-vars  &quot;deploy_host_name=&apos;db&apos; username=&apos;${username}&apos; password=&apos;${password}&apos; hostport=&apos;${hostport}&apos; database_name=&apos;${database_name}&apos; image_tag=&apos;${image_tag}&apos;&quot; main.yml --tag provision-postgres
+ansible-playbook -i inventory/hosts --extra-vars  &quot;deploy_host_name=&apos;${database_group}&apos; username=&apos;${username}&apos; password=&apos;${password}&apos; hostport=&apos;${hostport}&apos; database_name=&apos;${database_name}&apos; image_tag=&apos;${image_tag}&apos; private_interface=&apos;${private_interface}&apos; private_interface=&apos;${private_interface}&apos;&quot; main.yml --tag provision-postgres
 </command>
       <configuredLocalRules/>
     </hudson.tasks.Shell>

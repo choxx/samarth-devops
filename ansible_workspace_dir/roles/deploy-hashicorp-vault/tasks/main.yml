@@ -1,0 +1,60 @@
+- name: Run the equivalent of "apt-get update" as a separate step
+  ansible.builtin.apt:
+    update_cache: yes
+
+- name: apt install gpg
+  ansible.builtin.apt:
+    name: gpg
+    state: present
+
+- name: Add key
+  shell: wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor | sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg >/dev/null
+
+- name: Add Hashicorp linux repository
+  shell: echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+
+- name: Run the equivalent of "apt-get update" as a separate step
+  ansible.builtin.apt:
+    update_cache: yes
+
+- name: Install the vault
+  ansible.builtin.apt:
+    name: vault
+
+
+- name: Copy config
+  template:
+    src: config.hcl
+    dest: "{{ config_file_location }}"
+
+- name: Create storage directory
+  file:
+    path: "./vault/data"
+    state: directory
+
+- name: Create vault service
+  template:
+    src: vault.service
+    dest: /etc/systemd/system/vault.service
+
+- name: Just force systemd to reread configs (2.4 and above)
+  ansible.builtin.systemd:
+    daemon_reload: yes
+    
+- name: Start vault service
+  systemd:
+    name: vault.service
+    state: started
+
+- name: Start vault service
+  systemd:
+    name: vault.service
+    state: restarted
+
+
+- name: Generate token and seals
+  shell: "VAULT_ADDR='http://127.0.0.1:8200' vault operator init"
+  register: command_output
+
+- debug: 
+    var: command_output.stdout_lines
