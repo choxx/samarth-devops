@@ -1,0 +1,115 @@
+version: '3'
+
+services:
+
+  {{ docker_service_name }}_zookeeper:
+    image: wurstmeister/zookeeper
+    networks:
+      application_default:
+        aliases:
+          - {{ network_alias_name }}
+    ports:
+      - "2181:2181"
+
+  {{ docker_service_name }}_kafka:
+    hostname: {{ docker_service_name }}_kafka
+    image: wurstmeister/kafka
+    networks:
+      application_default:
+        aliases:
+          - {{ network_alias_name }}
+    ports:
+      - "9094:9094"
+    environment:
+      KAFKA_LISTENERS: INSIDE://:9092,OUTSIDE://:9094
+      KAFKA_ADVERTISED_LISTENERS: INSIDE://:9092,OUTSIDE://dev.uci.samagra.io:9094
+      KAFKA_ZOOKEEPER_CONNECT: {{ docker_service_name }}_zookeeper:2181
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:SASL_PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
+      KAFKA_SASL_ENABLED_MECHANISMS: PLAIN
+      KAFKA_SASL_MECHANISM_INTER_BROKER_PROTOCOL: PLAIN
+      KAFKA_OPTS: "-Djava.security.auth.login.config=/etc/kafka/kafka_server_jaas.conf"
+      KAFKA_LOG_DIRS: ./data00/kafka-logs
+    volumes:
+      - kafka-data00:/kafka
+      - kafka-data:/var/lib/kafka:Z
+
+  {{ docker_service_name }}_schema-registry:
+    image: confluentinc/cp-schema-registry
+    depends_on:
+      - {{ docker_service_name }}_kafka
+    networks:
+      application_default:
+        aliases:
+          - {{ network_alias_name }}
+    environment:
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: '{{ docker_service_name }}_kafka:9092'
+      SCHEMA_REGISTRY_HOST_NAME: '{{ docker_service_name }}_schema-registry'
+      SCHEMA_REGISTRY_LISTENERS: 'http://0.0.0.0:8085'
+      SCHEMA_REGISTRY_LOG4J_ROOT_LOGLEVEL: 'INFO'
+
+  {{ docker_service_name }}_connect:
+    image: confluentinc/cp-kafka-connect
+    depends_on:
+      - {{ docker_service_name }}_kafka
+      - {{ docker_service_name }}_schema-registry
+    networks:
+      application_default:
+        aliases:
+          - {{ network_alias_name }}
+    environment:
+      CONNECT_BOOTSTRAP_SERVERS: '{{ docker_service_name }}_kafka:9092'
+      CONNECT_REST_PORT: '8083'
+      CONNECT_REST_LISTENERS: 'http://0.0.0.0:8083'
+      CONNECT_REST_ADVERTISED_HOST_NAME: '{{ docker_service_name }}_connect'
+      CONNECT_CONFIG_STORAGE_TOPIC: '__connect-config'
+      CONNECT_OFFSET_STORAGE_TOPIC: '__connect-offsets'
+      CONNECT_STATUS_STORAGE_TOPIC: '__connect-status'
+      CONNECT_GROUP_ID: '{{ docker_service_name }}_kafka-connect'
+      CONNECT_KEY_CONVERTER_SCHEMAS_ENABLE: 'true'
+      CONNECT_KEY_CONVERTER: 'io.confluent.connect.avro.AvroConverter'
+      CONNECT_KEY_CONVERTER_SCHEMA_REGISTRY_URL: 'http://{{ docker_service_name }}_schema-registry:8085'
+      CONNECT_VALUE_CONVERTER_SCHEMAS_ENABLE: 'true'
+      CONNECT_VALUE_CONVERTER: 'io.confluent.connect.avro.AvroConverter'
+      CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL: 'http://{{ docker_service_name }}_schema-registry:8085'
+      CONNECT_INTERNAL_KEY_CONVERTER: 'org.apache.kafka.connect.json.JsonConverter'
+      CONNECT_INTERNAL_VALUE_CONVERTER: 'org.apache.kafka.connect.json.JsonConverter'
+      CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: '1'
+      CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: '1'
+      CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: '1'
+      CONNECT_PLUGIN_PATH: ' /usr/share/java/'
+
+  {{ docker_service_name }}_akhq:
+    image: tchiotludo/akhq
+    networks:
+      application_default:
+        aliases:
+          - {{ network_alias_name }}
+    ports:
+     - "18080:8080"
+    environment:
+      AKHQ_CONFIGURATION: |
+        akhq:
+          security:
+            basic-auth:
+              - username: admin
+                password: d49745a74edfd20705ccaa277209db554b6b0d78c20780a4facf87e88aee78c0
+                groups:
+                  - admin
+          connections:
+            docker-kafka-server:
+              properties:
+                bootstrap.servers: "{{ docker_service_name }}_kafka:9092"
+              schema-registry:
+                url: "http://{{ docker_service_name }}_schema-registry:8085"
+              connect:
+                - name: "connect"
+                  url: "http://{{ docker_service_name }}_connect:8083"
+
+networks:
+  application_default:
+    external: true
+
+volumes:
+  kafka-data00:
+  kafka-data:

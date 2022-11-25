@@ -10,9 +10,29 @@ esamwad_backend_logs: /mydata/logs/esamwad-backend
 force_reload_esmawad_backend_service: true
 esamwad_secret_path: kv/data/samarth/esamwad-backend
 
+# For Esamwad Hasura
+service_esamwad_hasura_service: esamwad_hasura-service
+service_esamwad_hasura_host_port: 8081
+service_esamwad_hasura_docker_port: 8080
+network_alias_esamwad_hasura_service: esamwad_hasura-service
+image_esamwad_hasura_service: samarth-esamwad_hasura-service
+esamwad_hasura_logs: /mydata/logs/esamwad_hasura
+force_reload_esamwad_hasura_service: true
+esamwad_hasura_secret_path: kv/data/samarth/esamwad-hasura
+
+# For Esamwad PgBouncer
+service_esamwad_pgbouncer_service: esamwad_pgbouncer-service
+service_esamwad_pgbouncer_host_port: 6432
+service_esamwad_pgbouncer_docker_port: 6432
+network_alias_esamwad_pgbouncer_service: esamwad_pgbouncer-service
+image_esamwad_pgbouncer_service: esamwad-pgbouncer
+esamwad_pgbouncer_logs: /mydata/logs/esamwad_pgbouncer
+force_reload_esamwad_pgbouncer_service: true
+esamwad_pgbouncer_secret_path: kv/data/samarth/esamwad-pgbouncer
+
 service_user_service: user-service
-service_user_host_port: 3006
-service_user_docker_port: 3000
+service_user_service_host_port: 3006
+service_user_service_docker_port: 3000
 network_alias_user_service: user-service
 image_user_service: user-service
 user_service_logs: /mydata/logs/user-service
@@ -29,7 +49,7 @@ force_reload_fusion_auth_service: true
 fusion_auth_secret_path: kv/data/samarth/fusion-auth
 
 service_fa_relay_service: fa-relay-service
-service_fa_relay_host_port: 8080
+service_fa_relay_host_port: 8082
 service_fa_relay_docker_port: 8080
 network_alias_fa_relay_service: fa-relay-service
 image_fa_relay_service: fa-relay
@@ -184,6 +204,14 @@ image_posthog_clickhouse_service: clickhouse
 posthog_clickhouse_logs: /mydata/logs/posthog-clickhouse
 force_reload_posthog_clickhouse_service: true
 
+# For Posthog DB (Pgbouncer)
+service_posthog_db: posthog_db
+network_alias_posthog_db_service: posthog_db-service
+image_posthog_db_service: posthog-pgbouncer
+posthog_db_logs: /mydata/logs/posthog-db
+force_reload_posthog_db_service: true
+posthog_db_secret_path: kv/data/samarth/posthog-pgbouncer
+
 # For Posthog Kafka
 service_posthog_kafka_service: posthog_kafka-service
 network_alias_posthog_kafka_service: posthog_kafka-service
@@ -249,7 +277,6 @@ airflow_worker_logs: /mydata/logs/airflow-worker
 force_reload_airflow_worker_service: true
 airflow_worker_secret_path: "{{ airflow_webserver_secret_path }}"  # using same secret as webserver
 
-
 # For Minio
 service_minio: minio-service
 network_alias_minio_service: minio-service
@@ -272,6 +299,94 @@ sentry_logs: /mydata/logs/sentry
 force_reload_sentry_service: true
 sentry_secret_path: kv/data/samarth/sentry
 
+# UCI APIs
+service_uci_apis: uci-apis
+service_uci_apis_host_port: 9999
+service_uci_apis_docker_port: 9999
+network_alias_uci_apis_service: uci-apis
+image_uci_apis_service: uci-apis
+uci_apis_logs: /mydata/logs/uci-apis
+force_reload_uci_apis_service: true
+service_uci_apis_hostname: uci-api-service
+uci_apis_secret_path: kv/data/samarth/uci
+
+# UCI Fusionauth
+service_uci_fusion_auth_service: uci-fusion-auth-service
+service_uci_fusion_auth_host_port: 9012
+service_uci_fusion_auth_docker_port: 9011
+network_alias_uci_fusion_auth_service: uci-fusion-auth-service
+image_uci_fusion_auth_service: samarth-uci-fusion-auth-service
+uci_fusion_auth_logs: /mydata/logs/fusion-auth
+force_reload_uci_fusion_auth_service: true
+uci_fusion_auth_secret_path: "{{ uci_apis_secret_path }}" # use common vault for UCI
+
+# For UCI APIs DB Hasura
+service_uci_api_db_hasura_service: uci_api_db_hasura-service
+service_uci_api_db_hasura_host_port: 15004
+service_uci_api_db_hasura_docker_port: 8080
+network_alias_uci_api_db_hasura_service: uci_api_db_hasura-service
+image_uci_api_db_hasura_service: samarth-uci_api_db_hasura-service
+uci_api_db_hasura_logs: /mydata/logs/uci_api_db_hasura
+force_reload_uci_api_db_hasura_service: true
+uci_api_db_hasura_secret_path: "{{ uci_apis_secret_path }}" # use common vault for UCI
+service_uci_api_db_hasura_hostname: uci-api-db-gql
+
+# For UCI Kafka Stack
+service_uci_kafka_stack_service: uci_kafka_stack-service
+network_alias_uci_kafka_stack_service: uci_kafka_stack-service
+uci_kafka_stack_logs: /mydata/logs/uci-kafka-stack
+force_reload_uci_kafka_stack_service: true
+uci_kafka_stack_secret_path: "{{ uci_apis_secret_path }}" # use common vault for UCI
+
+# For UCI Core Stack
+service_uci_core_stack_service: uci_core_stack-service
+network_alias_uci_core_stack_service: uci_core_stack-service
+uci_core_stack_logs: /mydata/logs/uci-core-stack
+force_reload_uci_core_stack_service: true
+uci_core_stack_secret_path: "{{ uci_apis_secret_path }}" # use common vault for UCI
+
+# For UCI ODK
+service_uci_odk_service: uci_odk-service
+service_uci_odk_host_port: 8080
+service_uci_odk_docker_port: 8080
+network_alias_uci_odk_service: uci_odk-service
+image_uci_odk_service: uci_odk-service
+uci_odk_logs: /mydata/logs/uci_odk-service
+force_reload_uci_odk_service: true
+uci_odk_secret_path: "{{ uci_apis_secret_path }}" # use common vault for UCI
+
+# UCI Web Channel
+service_uci_web_channel: uci-web-channel
+service_uci_web_channel_host_port: 9098
+service_uci_web_channel_docker_port: 80
+network_alias_uci_web_channel_service: uci-web-channel
+image_uci_web_channel_service: uci-web-channel
+uci_web_channel_logs: /mydata/logs/uci-web-channel
+force_reload_uci_web_channel_service: true
+service_uci_web_channel_hostname: uci-web-channel
+uci_web_channel_secret_path: kv/data/samarth/uci-web-channel
+
+# UCI Admin
+service_uci_admin: uci-admin
+service_uci_admin_host_port: 9097
+service_uci_admin_docker_port: 80
+network_alias_uci_admin_service: uci-admin
+image_uci_admin_service: uci-admin
+uci_admin_logs: /mydata/logs/uci-admin
+force_reload_uci_admin_service: true
+service_uci_admin_hostname: uci-admin
+uci_admin_secret_path: kv/data/samarth/uci-admin
+
+# UCI Transport Socket
+service_uci_transport_socket: uci-transport-socket
+service_uci_transport_socket_host_port: 3005
+service_uci_transport_socket_docker_port: 3005
+network_alias_uci_transport_socket_service: uci-transport-socket
+image_uci_transport_socket_service: uci-transport-socket
+uci_transport_socket_logs: /mydata/logs/uci-transport-socket
+force_reload_uci_transport_socket_service: true
+service_uci_transport_socket_hostname: uci-transport-socket
+uci_transport_socket_secret_path: "{{ uci_apis_secret_path }}" # use common vault for UCI
 
 VAULT_TOKEN: #VAULT TOKEN
 VAULT_ADDR: #VAULT ADDR

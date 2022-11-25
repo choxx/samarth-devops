@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+
+  {{ docker_service_name }}:
+    image: {{ DOCKER_HUB_IMAGE }}
+    hostname: fusionauth
+    environment:
+      DATABASE_URL: jdbc:postgresql://{{ credentials.FUSIONAUTH_POSTGRES_HOST }}:{{ credentials.FUSIONAUTH_POSTGRES_PORT }}/fusionauth
+      DATABASE_ROOT_USERNAME: {{ credentials.FUSIONAUTH_POSTGRES_USER }}
+      DATABASE_ROOT_PASSWORD: {{ credentials.FUSIONAUTH_POSTGRES_PASSWORD }}
+      DATABASE_USERNAME: {{ credentials.FUSIONAUTH_DATABASE_USER }}
+      DATABASE_PASSWORD: {{ credentials.FUSIONAUTH_DATABASE_PASSWORD }}
+      FUSIONAUTH_SEARCH_ENGINE_TYPE: elasticsearch
+      FUSIONAUTH_SEARCH_SERVERS: http://{{ credentials.FUSIONAUTH_ES_HOST }}:{{ credentials.FUSIONAUTH_ES_PORT }}
+      FUSIONAUTH_URL: http://{{ docker_service_name }}:{{ docker_port }}
+      FUSIONAUTH_API_KEY: {{ credentials.FUSIONAUTH_API_KEY }}
+      FUSIONAUTH_APP_KICKSTART_FILE: {{ credentials.FUSIONAUTH_APP_KICKSTART_FILE }}
+      FUSIONAUTH_ADMIN_EMAIL: {{ credentials.FUSIONAUTH_ADMIN_EMAIL }}
+      FUSIONAUTH_ADMIN_PASSWORD: {{ credentials.FUSIONAUTH_ADMIN_PASSWORD }}
+
+    {% if publish_ports == true %}
+
+    ports:
+      - {{ host_port }}:{{ docker_port }}
+      
+    {% endif %}
+    
+    volumes:
+      - uci-fusion_auth_config:/usr/local/fusionauth/config
+
+networks:
+  application_default:
+    external: true
+
+volumes:
+  uci-fusion_auth_config:
