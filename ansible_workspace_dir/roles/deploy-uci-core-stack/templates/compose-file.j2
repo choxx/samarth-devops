@@ -1,0 +1,152 @@
+version: '3'
+
+services:
+
+  {{ docker_service_name }}_inbound:
+    hostname: {{ docker_service_name }}_inbound
+    image: "samagragovernance/inbound:{{ credentials.CURRENT_VERSION }}"
+    env_file: {{ env_file_deployment_location }}
+    networks:
+      application_default:
+        aliases:
+          - {{ network_alias_name }}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:{{ credentials.INBOUND_INTERNAL_PORT }}"]
+      interval: 60s
+      timeout: 10s
+      retries: 5
+    ports:
+      - "{{ credentials.INBOUND_EXTERNAL_PORT }}:{{ credentials.INBOUND_INTERNAL_PORT }}"
+
+  {{ docker_service_name }}_orchestrator:
+    hostname: {{ docker_service_name }}_orchestrator
+    image: "samagragovernance/orchestrator:{{ credentials.CURRENT_VERSION }}"
+    networks:
+      application_default:
+        aliases:
+          - {{ network_alias_name }}
+    env_file: {{ env_file_deployment_location }}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:{{ credentials.ORCHESTRATOR_INTERNAL_PORT }}"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    ports:
+      - "{{ credentials.ORCHESTRATOR_INTERNAL_PORT }}:{{ credentials.ORCHESTRATOR_INTERNAL_PORT }}"
+
+  {{ docker_service_name }}_transformer:
+    hostname: {{ docker_service_name }}_transformer
+    image: "samagragovernance/transformer:{{ credentials.CURRENT_VERSION }}"
+    env_file: {{ env_file_deployment_location }}
+    networks:
+      application_default:
+        aliases:
+          - {{ network_alias_name }}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:{{ credentials.TRANSFORMER_INTERNAL_PORT }}"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    ports:
+      - "{{ credentials.TRANSFORMER_INTERNAL_PORT }}:{{ credentials.TRANSFORMER_INTERNAL_PORT }}"
+
+  {{ docker_service_name }}_outbound:
+    hostname: {{ docker_service_name }}_outbound
+    image: "samagragovernance/outbound:{{ credentials.CURRENT_VERSION }}"
+    env_file: {{ env_file_deployment_location }}
+    networks:
+      application_default:
+        aliases:
+          - {{ network_alias_name }}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:{{ credentials.OUTBOUND_INTERNAL_PORT }}"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    ports:
+      - "{{ credentials.OUTBOUND_INTERNAL_PORT }}:{{ credentials.OUTBOUND_INTERNAL_PORT }}"
+
+  {{ docker_service_name }}_broadcast-transformer:
+    hostname: {{ docker_service_name }}_broadcast-transformer
+    image: "samagragovernance/broadcast-transformer:{{ credentials.CURRENT_VERSION }}"
+    env_file: {{ env_file_deployment_location }}
+    networks:
+      application_default:
+        aliases:
+          - {{ network_alias_name }}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:{{ credentials.BROADCAST_TRANSFORMER_INTERNAL_PORT }}"]
+      interval: 60s
+      timeout: 10s
+      retries: 5
+    ports:
+      - "{{ credentials.BROADCAST_TRANSFORMER_INTERNAL_PORT }}:{{ credentials.BROADCAST_TRANSFORMER_INTERNAL_PORT }}"
+
+  {{ docker_service_name }}_cdac:
+    image: samagragovernance/cdac-service:4.10.3
+    hostname: {{ docker_service_name }}_cdac
+    networks:
+      application_default:
+        aliases:
+          - {{ network_alias_name }}
+    env_file: {{ env_file_deployment_location }}
+    ports:
+      - 9095:9095
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://cdac:9095/api"]
+      interval: 2s
+      timeout: 5s
+      retries: 20
+
+  {{ docker_service_name }}_cass:
+    image: cassandra:latest
+    hostname: {{ docker_service_name }}_cass
+    networks:
+      application_default:
+        aliases:
+          - {{ network_alias_name }}
+    ports:
+      - 7000:7000
+      - 7001:7001
+      - 7199:7199
+      - 9041:9042
+      - 9160:9160
+    environment:
+      - MAX_HEAP_SIZE=1000M
+      - HEAP_NEWSIZE=1000M
+      - CASSANDRA_RPC_ADDRESS=0.0.0.0
+    volumes:
+      - cassandra-data:/var/lib/cassandra
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "cqlsh",
+          "-u cassandra",
+          "-p cassandra",
+          "-e describe keyspaces",
+        ]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+
+  {{ docker_service_name }}_graphql-formsdb:
+    image: hasura/graphql-engine:latest
+    networks:
+      application_default:
+        aliases:
+          - {{ network_alias_name }}
+    ports:
+      - "15002:8080"
+    environment:
+      HASURA_GRAPHQL_DATABASE_URL: {{ credentials.FORMS_DB_URL }}
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "true" # set to "false" to disable console
+      HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
+      HASURA_GRAPHQL_ADMIN_SECRET: {{ credentials.FORMS_DB_HASURA_ADMIN_SECRET }}
+
+networks:
+  application_default:
+    external: true
+
+volumes:
+  cassandra-data:

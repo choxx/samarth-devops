@@ -1,0 +1,26 @@
+---
+# vars file for deploy-sb-ext
+# For script
+template_compose_file_name: compose-file.j2
+template_env_file_name: env.j2
+compose_file_name: "{{ service_uci_admin }}.yml"
+env_file_name: "{{ service_uci_admin }}.env"
+compose_file_deployment_location: "{{ compose_files_dir }}/{{ compose_file_name }}"
+env_file_deployment_location: "{{ env_files_dir }}/{{ env_file_name }}"
+user_friendly_name: uci-admin
+
+docker_port: "{{ service_uci_admin_docker_port }}"
+host_port: "{{ service_uci_admin_host_port }}"
+image_name: "{{ image_uci_admin_service }}"
+tag: "{{ tags_uci_admin_service }}"
+replicas: "{{ service_replicas_uci_admin_service }}"
+network_alias_name: "{{ network_alias_uci_admin_service }}"
+docker_service_stack_name: samarth
+docker_service_name: "{{ service_uci_admin }}"
+force_reload: "{{ force_reload_uci_admin_service }}"
+host_logs_location: "{{ uci_admin_service_logs }}"
+docker_logs_location: /logs
+docker_service_hostname: "{{ service_uci_admin_hostname }}"
+
+# Your credentials on the vault
+credentials: "{{ lookup('hashi_vault', 'secret={{ uci_admin_secret_path }}', url=VAULT_ADDR, token=VAULT_TOKEN) }}"

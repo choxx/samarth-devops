@@ -1,0 +1,21 @@
+---
+# vars file for deploy-sb-ext
+# For script
+template_compose_file_name: compose-file.j2
+template_env_file_name: env.j2
+compose_file_name: "{{ service_uci_kafka_stack_service }}.yml"
+env_file_name: "{{ service_uci_kafka_stack_service }}.env"
+compose_file_deployment_location: "{{ compose_files_dir }}/{{ compose_file_name }}"
+env_file_deployment_location: "{{ env_files_dir }}/{{ env_file_name }}"
+user_friendly_name: uci_kafka_stack_service
+
+replicas: "{{ service_replicas_uci_kafka_stack_service }}"
+network_alias_name: "{{ network_alias_uci_kafka_stack_service }}"
+docker_service_stack_name: samarth
+docker_service_name: "{{ service_uci_kafka_stack_service }}"
+force_reload: "{{ force_reload_uci_kafka_stack_service }}"
+host_logs_location: "{{ uci_kafka_stack_logs }}"
+docker_logs_location: /logs
+
+# Your credentials on the vault
+credentials: "{{ lookup('hashi_vault', 'secret={{ uci_kafka_stack_secret_path }}', url=VAULT_ADDR, token=VAULT_TOKEN) }}"

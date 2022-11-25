@@ -68,3 +68,27 @@
       tags: [deploy-sentry]
     - role: deploy-hashicorp-vault
       tags: [deploy-hashicorp-vault]
+    - role: deploy-esamwad-hasura
+      tags: [deploy-esamwad-hasura]
+    - role: deploy-esamwad-pgbouncer
+      tags: [deploy-esamwad-pgbouncer]
+    - role: deploy-posthog-db
+      tags: [ deploy-posthog-db ]
+    - role: deploy-uci-apis
+      tags: [ deploy-uci-apis ]
+    - role: deploy-uci-fusion-auth
+      tags: [ deploy-uci-fusion-auth ]
+    - role: deploy-uci-api-db-hasura
+      tags: [ deploy-uci-api-db-hasura ]
+    - role: deploy-uci-kafka-stack
+      tags: [ deploy-uci-kafka-stack ]
+    - role: deploy-uci-core-stack
+      tags: [ deploy-uci-core-stack ]
+    - role: deploy-uci-odk
+      tags: [ deploy-uci-odk ]
+    - role: deploy-uci-web-channel
+      tags: [ deploy-uci-web-channel ]
+    - role: deploy-uci-admin
+      tags: [ deploy-uci-admin ]
+    - role: deploy-uci-transport-socket
+      tags: [ deploy-uci-transport-socket ]

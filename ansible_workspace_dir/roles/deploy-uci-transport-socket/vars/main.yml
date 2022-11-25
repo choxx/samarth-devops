@@ -1,0 +1,26 @@
+---
+# vars file for deploy-sb-ext
+# For script
+template_compose_file_name: compose-file.j2
+template_env_file_name: env.j2
+compose_file_name: "{{ service_uci_transport_socket }}.yml"
+env_file_name: "{{ service_uci_transport_socket }}.env"
+compose_file_deployment_location: "{{ compose_files_dir }}/{{ compose_file_name }}"
+env_file_deployment_location: "{{ env_files_dir }}/{{ env_file_name }}"
+user_friendly_name: uci_transport_socket_service
+
+
+host_port: "{{ service_uci_transport_socket_host_port }}"
+docker_port: "{{ service_uci_transport_socket_docker_port }}"
+tag: "{{ tags_uci_transport_socket_service }}"
+replicas: "{{ service_replicas_uci_transport_socket_service }}"
+network_alias_name: "{{ network_alias_uci_transport_socket_service }}"
+docker_service_stack_name: samarth
+docker_service_name: "{{ service_uci_transport_socket }}"
+force_reload: "{{ force_reload_uci_transport_socket_service }}"
+host_logs_location: "{{ uci_transport_socket_logs }}"
+docker_logs_location: /logs
+
+DOCKER_HUB_IMAGE: samagragovernance/uci-transport-socket:{{ tag }}
+# Your credentials on the vault
+credentials: "{{ lookup('hashi_vault', 'secret={{ uci_transport_socket_secret_path }}', url=VAULT_ADDR, token=VAULT_TOKEN) }}"

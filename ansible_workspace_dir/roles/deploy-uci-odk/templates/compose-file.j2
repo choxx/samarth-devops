@@ -1,0 +1,42 @@
+version: "3"
+services:
+  {{ docker_service_name }}_wait_for_db:
+    image: dadarek/wait-for-dependencies
+    networks:
+      application_default:
+        aliases:
+          - {{ network_alias_name }}
+    command: {{ credentials.ODK_POSTGRES_HOST }}:{{ credentials.ODK_POSTGRES_PORT }}
+
+  {{ docker_service_name }}:
+    image: {{ docker_hub_url }}/{{ image_name }}:{{ tag }}
+    hostname: {{ docker_service_name }}_aggregate-server
+    depends_on:
+      - {{ docker_service_name }}_wait_for_db
+    networks:
+      application_default:
+        aliases:
+          - {{ network_alias_name }}
+    environment:
+      - DB_USERNAME={{ credentials.ODK_POSTGRES_USER }}
+      - DB_SCHEMA=public
+      - DB_PASSWORD={{ credentials.ODK_POSTGRES_PASSWORD }}
+      - DB_NAME={{ credentials.ODK_POSTGRES_DB }}
+      - DB_PORT={{ credentials.ODK_POSTGRES_PORT }}
+      - AGGREGATE_HOST={{ credentials.ODK_POSTGRES_HOST }}
+      - DB_URL=jdbc:postgresql://{{ credentials.ODK_POSTGRES_HOST }}:{{ credentials.ODK_POSTGRES_PORT }}/{{ credentials.ODK_POSTGRES_DB }}?user={{ credentials.ODK_POSTGRES_USER }}&password={{ credentials.ODK_POSTGRES_PASSWORD }}
+    ports:
+      - 8080:8080
+
+    volumes:
+      - odk-webapps:/usr/local/tomcat/webapps
+    
+    env_file:
+      - {{ env_file_deployment_location }}
+
+networks:
+  application_default:
+    external: true
+
+volumes:
+  odk-webapps:
