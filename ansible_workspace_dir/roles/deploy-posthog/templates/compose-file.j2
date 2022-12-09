@@ -32,6 +32,10 @@ services:
     <<: *{{ docker_service_name }}_worker
     command: /compose/start
     restart: on-failure
+    networks:
+      application_default:
+        aliases:
+            - {{ network_alias_name }}
     ports:
       - "{{ host_port }}:{{ docker_port }}"
 
@@ -51,6 +55,10 @@ services:
   {{ docker_service_name }}_asyncmigrationscheck:
     <<: *{{ docker_service_name }}_worker
     command: python manage.py run_async_migrations --check
+    networks:
+      application_default:
+        aliases:
+            - {{ network_alias_name }}
     restart: 'no'
 
 networks:

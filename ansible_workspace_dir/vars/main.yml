@@ -168,7 +168,7 @@ doc_generator_broker_secret_path: kv/data/samarth/doc-generator-broker
 
 # For Doc Generator Web
 service_doc_generator_web: doc_generator_web-service
-service_doc_generator_web_host_port: 8000
+service_doc_generator_web_host_port: 8001
 service_doc_generator_web_docker_port: 8000
 network_alias_doc_generator_web_service: doc_generator_web-service
 image_doc_generator_web_service: doc_generator-web
@@ -199,13 +199,15 @@ templater_secret_path: kv/data/samarth/templater
 
 # For Posthog Clickhouse
 service_posthog_clickhouse: posthog_clickhouse
-network_alias_posthog_clickhouse_service: posthog_clickhouse-service
+network_alias_posthog_clickhouse_service: posthog_clickhouse_service
 image_posthog_clickhouse_service: clickhouse
-posthog_clickhouse_logs: /mydata/logs/posthog-clickhouse
+posthog_clickhouse_logs: /mydata/logs/posthog_clickhouse
 force_reload_posthog_clickhouse_service: true
 
 # For Posthog DB (Pgbouncer)
 service_posthog_db: posthog_db
+service_posthog_db_service_host_port: 6432
+service_posthog_db_service_docker_port: 6432
 network_alias_posthog_db_service: posthog_db-service
 image_posthog_db_service: posthog-pgbouncer
 posthog_db_logs: /mydata/logs/posthog-db
@@ -388,5 +390,5 @@ force_reload_uci_transport_socket_service: true
 service_uci_transport_socket_hostname: uci-transport-socket
 uci_transport_socket_secret_path: "{{ uci_apis_secret_path }}" # use common vault for UCI
 
-VAULT_TOKEN: #VAULT TOKEN
-VAULT_ADDR: #VAULT ADDR
+VAULT_TOKEN: hvs.ttV4i46bD9rngBD6oI6fzCSn
+VAULT_ADDR: http://128.199.26.225:8200
