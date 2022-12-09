@@ -1,0 +1,27 @@
+---
+# vars file for deploy-sb-ext
+# For script
+template_compose_file_name: compose-file.j2
+template_env_file_name: env.j2
+compose_file_name: "{{ service_esamwad_broker }}.yml"
+env_file_name: "{{ service_esamwad_broker }}.env"
+compose_file_deployment_location: "{{ compose_files_dir }}/{{ compose_file_name }}"
+env_file_deployment_location: "{{ env_files_dir }}/{{ env_file_name }}"
+user_friendly_name: esamwad_broker_service
+
+docker_port: "{{ service_esamwad_broker_docker_port }}"
+host_port: "{{ service_esamwad_broker_host_port }}"
+image_name: "{{ image_esamwad_broker_service }}"
+tag: "{{ tags_esamwad_broker_service }}"
+replicas: "{{ service_replicas_esamwad_broker_service }}"
+network_alias_name: "{{ network_alias_esamwad_broker_service }}"
+docker_service_stack_name: samarth
+docker_service_name: "{{ service_esamwad_broker }}"
+force_reload: "{{ force_reload_esamwad_broker_service }}"
+host_logs_location: "{{ esamwad_broker_logs }}"
+docker_logs_location: /logs
+
+DOCKER_HUB_IMAGE: docker.io/bitnami/rabbitmq:{{ tag }}
+
+# Your credentials on the vault
+credentials: "{{ lookup('hashi_vault', 'secret={{ esamwad_broker_secret_path }}', url=VAULT_ADDR, token=VAULT_TOKEN) }}"

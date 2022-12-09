@@ -92,3 +92,5 @@
       tags: [ deploy-uci-admin ]
     - role: deploy-uci-transport-socket
       tags: [ deploy-uci-transport-socket ]
+    - role: deploy-esamwad-broker
+      tags: [ deploy-esamwad-broker ]

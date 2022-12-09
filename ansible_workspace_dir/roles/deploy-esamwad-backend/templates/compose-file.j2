@@ -47,7 +47,7 @@ services:
     environment:
       - IS_WEB=true
 
-  worker:
+  {{ docker_service_name }}_worker:
     image: {{ docker_hub_url }}/{{ image_name }}:{{ tag }}
     restart: on-failure
     env_file:
