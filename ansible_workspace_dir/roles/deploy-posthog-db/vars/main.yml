@@ -9,6 +9,8 @@ compose_file_deployment_location: "{{ compose_files_dir }}/{{ compose_file_name 
 env_file_deployment_location: "{{ env_files_dir }}/{{ env_file_name }}"
 user_friendly_name: posthog-db
 
+docker_port: "{{ service_posthog_db_service_docker_port }}"
+host_port: "{{ service_posthog_db_service_host_port }}"
 image_name: "{{ image_posthog_db_service }}"
 tag: "{{ tags_posthog_db_service }}"
 replicas: "{{ service_replicas_posthog_db_service }}"
