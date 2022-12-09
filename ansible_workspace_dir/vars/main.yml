@@ -22,7 +22,7 @@ esamwad_hasura_secret_path: kv/data/samarth/esamwad-hasura
 
 # For Esamwad PgBouncer
 service_esamwad_pgbouncer_service: esamwad_pgbouncer-service
-service_esamwad_pgbouncer_host_port: 6432
+service_esamwad_pgbouncer_host_port: 6435
 service_esamwad_pgbouncer_docker_port: 6432
 network_alias_esamwad_pgbouncer_service: esamwad_pgbouncer-service
 image_esamwad_pgbouncer_service: esamwad-pgbouncer
@@ -30,6 +30,17 @@ esamwad_pgbouncer_logs: /mydata/logs/esamwad_pgbouncer
 force_reload_esamwad_pgbouncer_service: true
 esamwad_pgbouncer_secret_path: kv/data/samarth/esamwad-pgbouncer
 
+# For Esamwad Broker
+service_esamwad_broker: esamwad_broker-service
+service_esamwad_broker_host_port: 5673
+service_esamwad_broker_docker_port: 5672
+network_alias_esamwad_broker_service: esamwad_broker-service
+image_esamwad_broker_service: samarth-esamwad_broker-service
+esamwad_broker_logs: /mydata/logs/esamwad_broker
+force_reload_esamwad_broker_service: true
+esamwad_broker_secret_path: "{{ esamwad_secret_path }}" # using the same path
+
+# User Service
 service_user_service: user-service
 service_user_service_host_port: 3006
 service_user_service_docker_port: 3000
@@ -39,6 +50,7 @@ user_service_logs: /mydata/logs/user-service
 force_reload_user_service: true
 user_service_secret_path: kv/data/samarth/user-service
 
+# Fusion Auth
 service_fusion_auth_service: fusion-auth-service
 service_fusion_auth_host_port: 9011
 service_fusion_auth_docker_port: 9011
@@ -48,6 +60,7 @@ fusion_auth_logs: /mydata/logs/fusion-auth
 force_reload_fusion_auth_service: true
 fusion_auth_secret_path: kv/data/samarth/fusion-auth
 
+# FA Relay
 service_fa_relay_service: fa-relay-service
 service_fa_relay_host_port: 8082
 service_fa_relay_docker_port: 8080
