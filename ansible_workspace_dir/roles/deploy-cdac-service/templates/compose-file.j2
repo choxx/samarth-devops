@@ -14,8 +14,8 @@ services:
     env_file:
       - {{ env_file_deployment_location }}
     
-    # healthcheck:
-    #   test: ["CMD", "curl", "-f", "http://cdac:8080/api"]
-    #   interval: 2s
-    #   timeout: 5s
-    #   retries: 20
+  healthcheck:
+    test: ["CMD", "curl", "-f", "http://{{ docker_service_name }}:{{ docker_port }}/api"]
+    interval: 2s
+    timeout: 5s
+    retries: 20

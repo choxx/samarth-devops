@@ -5,6 +5,13 @@ services:
     image: {{ docker_hub_url }}/{{ image_name }}:{{ tag }}
     environment:
       - EXECUTOR={{ credentials.EXECUTOR }}
+      - POSTGRES_HOST={{ credentials.POSTGRES_HOST }}
+      - POSTGRES_PORT={{ credentials.POSTGRES_PORT }}
+      - POSTGRES_USER={{ credentials.POSTGRES_USER }}
+      - POSTGRES_PASSWORD={{ credentials.POSTGRES_PASSWORD }}
+      - POSTGRES_DB={{ credentials.POSTGRES_DB }}
+      - REDIS_HOST={{ credentials.REDIS_HOST }}
+      - REDIS_PORT={{ credentials.REDIS_PORT }}
       - REDIS_PASSWORD={{ credentials.REDIS_PASSWORD }}
     command: flower
     
