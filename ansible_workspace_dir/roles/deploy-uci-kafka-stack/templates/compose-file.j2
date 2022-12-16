@@ -3,6 +3,7 @@ version: '3'
 services:
 
   {{ docker_service_name }}_zookeeper:
+    hostname: {{ docker_service_name }}_zookeeper
     image: wurstmeister/zookeeper
     networks:
       application_default:
@@ -10,10 +11,11 @@ services:
           - {{ network_alias_name }}
     ports:
       - "2181:2181"
+    restart: always
 
   {{ docker_service_name }}_kafka:
     hostname: {{ docker_service_name }}_kafka
-    image: wurstmeister/kafka
+    image: {{ docker_hub_url }}/{{ image_name }}:{{ tag }}
     networks:
       application_default:
         aliases:
@@ -33,8 +35,10 @@ services:
     volumes:
       - kafka-data00:/kafka
       - kafka-data:/var/lib/kafka:Z
+    restart: always
 
   {{ docker_service_name }}_schema-registry:
+    hostname: {{ docker_service_name }}_schema-registry
     image: confluentinc/cp-schema-registry
     depends_on:
       - {{ docker_service_name }}_kafka
@@ -47,8 +51,10 @@ services:
       SCHEMA_REGISTRY_HOST_NAME: '{{ docker_service_name }}_schema-registry'
       SCHEMA_REGISTRY_LISTENERS: 'http://0.0.0.0:8085'
       SCHEMA_REGISTRY_LOG4J_ROOT_LOGLEVEL: 'INFO'
+    restart: always
 
   {{ docker_service_name }}_connect:
+    hostname: {{ docker_service_name }}_connect
     image: confluentinc/cp-kafka-connect
     depends_on:
       - {{ docker_service_name }}_kafka
@@ -78,8 +84,10 @@ services:
       CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: '1'
       CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: '1'
       CONNECT_PLUGIN_PATH: ' /usr/share/java/'
+    restart: always
 
   {{ docker_service_name }}_akhq:
+    hostname: {{ docker_service_name }}_akhq
     image: tchiotludo/akhq
     networks:
       application_default:
@@ -105,6 +113,7 @@ services:
               connect:
                 - name: "connect"
                   url: "http://{{ docker_service_name }}_connect:8083"
+    restart: always
 
 networks:
   application_default:

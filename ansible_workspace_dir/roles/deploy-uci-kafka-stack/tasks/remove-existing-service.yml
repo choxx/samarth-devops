@@ -1,5 +1,21 @@
 ---
-  - name: Removing the existing service {{  docker_service_stack_name  }}_{{ docker_service_name }}
-    shell: docker service rm {{  docker_service_stack_name  }}_{{ docker_service_name }}
+  - name: Removing the existing service {{  docker_service_stack_name  }}_{{ docker_service_name }}_zookeeper
+    shell: docker service rm {{  docker_service_stack_name  }}_{{ docker_service_name }}_zookeeper
+    when: "force_reload==true"
+    ignore_errors: true
+  - name: Removing the existing service {{  docker_service_stack_name  }}_{{ docker_service_name }}_kafka
+    shell: docker service rm {{  docker_service_stack_name  }}_{{ docker_service_name }}_kafka
+    when: "force_reload==true"
+    ignore_errors: true
+  - name: Removing the existing service {{  docker_service_stack_name  }}_{{ docker_service_name }}_schema-registry
+    shell: docker service rm {{  docker_service_stack_name  }}_{{ docker_service_name }}_schema-registry
+    when: "force_reload==true"
+    ignore_errors: true
+  - name: Removing the existing service {{  docker_service_stack_name  }}_{{ docker_service_name }}_connect
+    shell: docker service rm {{  docker_service_stack_name  }}_{{ docker_service_name }}_connect
+    when: "force_reload==true"
+    ignore_errors: true
+  - name: Removing the existing service {{  docker_service_stack_name  }}_{{ docker_service_name }}_akhq
+    shell: docker service rm {{  docker_service_stack_name  }}_{{ docker_service_name }}_akhq
     when: "force_reload==true"
     ignore_errors: true

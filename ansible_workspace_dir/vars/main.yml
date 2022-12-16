@@ -52,7 +52,7 @@ user_service_secret_path: kv/data/samarth/user-service
 
 # Fusion Auth
 service_fusion_auth_service: fusion-auth-service
-service_fusion_auth_host_port: 9011
+service_fusion_auth_host_port: 9012
 service_fusion_auth_docker_port: 9011
 network_alias_fusion_auth_service: fusion-auth-service
 image_fusion_auth_service: samarth-fusion-auth-service
@@ -110,8 +110,10 @@ force_reload_yaus_web_service: true
 yaus_web_secret_path: kv/data/samarth/yaus-web
 
 service_odk_uci_adapter_service: odk-uci-adapter-service
-service_odk_uci_adapter_host_port: 5432
-service_odk_uci_adapter_docker_port: 5433
+service_odk_uci_adapter_host_port: 3010
+service_odk_uci_adapter_docker_port: 3000
+service_odk_uci_adapter_host_port_hasura: 15005
+service_odk_uci_adapter_host_port_redis_ui: 8089
 network_alias_odk_uci_adapter_service: odk-uci-adapter-service
 image_odk_uci_adapter_service: odk-uci-adapter
 odk_uci_adapter_logs: /mydata/logs/odk-uci-adapter-service
@@ -139,7 +141,7 @@ force_reload_fa_proxy_service: true
 # For cdac-service
 service_cdac_service: cdac-service
 service_cdac_host_port: 8090
-service_cdac_docker_port: 8000
+service_cdac_docker_port: 8080
 network_alias_cdac_service: cdac-service
 image_cdac_service: cdac-service
 cdac_service_logs: /mydata/logs/cdac-service
@@ -327,7 +329,7 @@ uci_apis_secret_path: kv/data/samarth/uci
 
 # UCI Fusionauth
 service_uci_fusion_auth_service: uci-fusion-auth-service
-service_uci_fusion_auth_host_port: 9012
+service_uci_fusion_auth_host_port: 9011
 service_uci_fusion_auth_docker_port: 9011
 network_alias_uci_fusion_auth_service: uci-fusion-auth-service
 image_uci_fusion_auth_service: samarth-uci-fusion-auth-service
@@ -358,6 +360,7 @@ service_uci_core_stack_service: uci_core_stack-service
 network_alias_uci_core_stack_service: uci_core_stack-service
 uci_core_stack_logs: /mydata/logs/uci-core-stack
 force_reload_uci_core_stack_service: true
+image_uci_kafka_stack_service: uci-kafka
 uci_core_stack_secret_path: "{{ uci_apis_secret_path }}" # use common vault for UCI
 
 # For UCI ODK

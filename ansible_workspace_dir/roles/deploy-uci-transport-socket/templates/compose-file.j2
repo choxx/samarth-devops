@@ -5,9 +5,9 @@ services:
   {{ docker_service_name }}:
     image: {{ DOCKER_HUB_IMAGE }}
     environment:
-      REDIS_HOST: {{ credentials.UCI_ADMIN_REDIS_HOST }}
-      REDIS_PORT: {{ credentials.UCI_ADMIN_REDIS_PORT }}
-      SERVER_PORT: {{ docker_address_port }}
+      REDIS_HOST: {{ credentials.TRANSPORT_SOCKET_REDIS_HOST }}
+      REDIS_PORT: {{ credentials.TRANSPORT_SOCKET_REDIS_PORT }}
+      SERVER_PORT: {{ host_port }}
       ADAPTER_URL: "http://{{ service_uci_core_stack_service }}_inbound:{{ credentials.INBOUND_INTERNAL_PORT }}/pwa/web"
     ports:
       - {{ host_port }}:{{ docker_port }}

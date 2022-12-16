@@ -31,8 +31,8 @@
       <jenkins.branch.BranchSource>
         <source class="jenkins.plugins.git.GitSCMSource" plugin="git@4.14.0">
           <id>31fcccf6-9be5-4a00-9a58-cbb59922d722</id>
-          <remote>https://github.com/choxx/odk-uci-adapter.git</remote>
-          <credentialsId>tushar5526</credentialsId>
+          <remote>https://github.com/choxx/uci-docker-deploy.git</remote>
+          <credentialsId></credentialsId>
           <traits>
             <jenkins.plugins.git.traits.BranchDiscoveryTrait/>
           </traits>
@@ -46,6 +46,6 @@
   </sources>
   <factory class="org.jenkinsci.plugins.workflow.multibranch.WorkflowBranchProjectFactory">
     <owner class="org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject" reference="../.."/>
-    <scriptPath>build/Jenkinsfile</scriptPath>
+    <scriptPath>build/Jenkinsfile.kafka</scriptPath>
   </factory>
 </org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject>
