@@ -16,7 +16,7 @@ services:
       FUSIONAUTH_APP_MEMORY: {{ FUSIONAUTH_MEMORY }}
       FUSIONAUTH_SEARCH_ENGINE_TYPE: elasticsearch
       FUSIONAUTH_SEARCH_SERVERS: {{ ELASTIC_SEARCH_URL }}
-      FUSIONAUTH_URL: http://fusionauth:9011
+      FUSIONAUTH_URL: http://fusionauth:{{ host_port }}
       FUSIONAUTH_RUNTIME_MODE: production
     restart: unless-stopped
 

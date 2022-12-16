@@ -9,6 +9,7 @@ compose_file_deployment_location: "{{ compose_files_dir }}/{{ compose_file_name 
 env_file_deployment_location: "{{ env_files_dir }}/{{ env_file_name }}"
 user_friendly_name: uci_kafka_stack_service
 
+image_name: "{{ image_uci_kafka_stack_service }}"
 replicas: "{{ service_replicas_uci_kafka_stack_service }}"
 network_alias_name: "{{ network_alias_uci_kafka_stack_service }}"
 docker_service_stack_name: samarth

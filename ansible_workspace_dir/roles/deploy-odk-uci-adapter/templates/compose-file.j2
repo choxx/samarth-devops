@@ -2,30 +2,47 @@ version: '3'
 
 services:
   {{ docker_service_name }}:
+    hostname: {{ docker_service_name }}
     image: {{ docker_hub_url }}/{{ image_name }}:{{ tag }}
-    environment: 
-      PORT: {{ host_port}}
-      QUEUE_HOST: {{ ODK_UCI_REDIS_HOST_URL }}
-      QUEUE_PORT: {{ ODK_UCI_REDIS_HOST_PORT }}
-      DATABASE_URL: {{ ODK_UCI_HASURA_DATABASE_URL }}
-      GQL_URL: {{ ODK_UCI_HASURA_DATABASE_URL }}
-      GQL_HEADERS: '{"content-type": "application/json", "x-hasura-admin-secret": {{ ODK_UCI_HASURA_ADMIN_SECRET }}}'
-      UCI_URL: {{ ODK_UCI_UCI_URL }}
-      UCI_ADAPTER_ID: {{ ODK_UCI_UCI_ADAPTER_ID }}
-      HOLIDAY_TEMPLATE_ID: {{ ODK_UCI_HOLIDAY_TEMPLATE_ID }}
-      MEETING_TEMPLATE_ID: {{ ODK_UCI_MEETING_TEMPLATE_ID }}
-      EXAM_ANNOUNCEMENT_TEMPLATE_ID: {{ ODK_UCI_EXAM_ANNOUNCEMENT_TEMPLATE_ID }}
-      EXAM_RESULT_ANNOUNCEMENT_TEMPLATE_ID: "{{ ODK_UCI_EXAM_RESULT_ANNOUNCEMENT_TEMPLATE_ID }}"
-      ANNOUNCEMENT_TEMPLATE_ID: "{{ ODK_UCI_ANNOUNCEMENT_TEMPLATE_ID }}"
-      HOMEWORK_TEMPLATE_ID: "{{ ODK_UCI_HOLIDAY_TEMPLATE_ID }}"
+    env_file:
+      - {{ env_file_deployment_location }}
     networks:
       application_default:
         aliases:
             - {{ network_alias_name }}
     ports:
       - {{host_port}}:{{docker_port}}    
-        
+
+  {{ docker_service_name }}_gql:
+    container_name: {{ docker_service_name }}_gql
+    image: hasura/graphql-engine:v2.7.0
+    ports:
+      - {{host_port_hasura}}:8080
+    environment:
+      HASURA_GRAPHQL_DATABASE_URL: {{ credentials.DATABASE_URL }}
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "true"
+      HASURA_GRAPHQL_ADMIN_SECRET: {{ credentials.HASURA_ADMIN_SECRET }}
+      WEBHOOK_URL: http://{{ docker_service_name }}:{{docker_port}}/submit
+    networks:
+      application_default:
+        aliases:
+            - {{ network_alias_name }}
+
+  {{ docker_service_name }}_redis-ui:
+    container_name: {{ docker_service_name }}_redis-ui
+    image: redislabs/redisinsight:latest
+    networks:
+      application_default:
+        aliases:
+            - {{ network_alias_name }}
+    volumes:
+      - redisinsight:/db 
+    ports:
+      - {{host_port_redis_ui}}:8001
+
 networks:
   application_default:
     external: true
 
+volumes:
+  redisinsight:
