@@ -13,7 +13,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.47">
-      <project>Samarth/production/build/odk/master</project>
+      <project>Samarth/production/build/odk/release-4.4.0</project>
       <filter></filter>
       <target></target>
       <excludes></excludes>
