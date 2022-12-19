@@ -300,7 +300,7 @@ network_alias_minio_service: minio-service
 image_minio_service: quay.io/minio/minio
 service_minio_host_address_port: 9000
 service_minio_docker_address_port: 9000
-service_minio_host_console_port: 9090
+service_minio_host_console_port: 9099
 service_minio_docker_console_port: 9090
 minio_logs: /mydata/logs/minio
 force_reload_minio_service: true
@@ -356,8 +356,8 @@ force_reload_uci_kafka_stack_service: true
 uci_kafka_stack_secret_path: "{{ uci_apis_secret_path }}" # use common vault for UCI
 
 # For UCI Core Stack
-service_uci_core_stack_service: uci_core_stack-service
-network_alias_uci_core_stack_service: uci_core_stack-service
+service_uci_core_stack_service: uci-core-stack-service
+network_alias_uci_core_stack_service: uci-core-stack-service
 uci_core_stack_logs: /mydata/logs/uci-core-stack
 force_reload_uci_core_stack_service: true
 image_uci_kafka_stack_service: uci-kafka
