@@ -2,24 +2,24 @@ version: '3'
 
 services:
 
-  {{ docker_service_name }}_inbound:
-    hostname: {{ docker_service_name }}_inbound
+  {{ docker_service_name }}-inbound:
+    hostname: {{ docker_service_name }}-inbound
     image: "samagragovernance/inbound:{{ credentials.CURRENT_VERSION }}"
     env_file: {{ env_file_deployment_location }}
     networks:
       application_default:
         aliases:
           - {{ network_alias_name }}
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:{{ credentials.INBOUND_INTERNAL_PORT }}"]
-      interval: 60s
-      timeout: 10s
-      retries: 5
+    #healthcheck:
+    #  test: ["CMD", "curl", "-f", "http://{{ docker_service_name }}-inbound:{{ credentials.INBOUND_INTERNAL_PORT }}"]
+    #  interval: 60s
+    #  timeout: 10s
+    #  retries: 5
     ports:
       - "{{ credentials.INBOUND_EXTERNAL_PORT }}:{{ credentials.INBOUND_INTERNAL_PORT }}"
 
-  {{ docker_service_name }}_orchestrator:
-    hostname: {{ docker_service_name }}_orchestrator
+  {{ docker_service_name }}-orchestrator:
+    hostname: {{ docker_service_name }}-orchestrator
     image: "samagragovernance/orchestrator:{{ credentials.CURRENT_VERSION }}"
     networks:
       application_default:
@@ -27,15 +27,15 @@ services:
           - {{ network_alias_name }}
     env_file: {{ env_file_deployment_location }}
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:{{ credentials.ORCHESTRATOR_INTERNAL_PORT }}"]
+      test: ["CMD", "curl", "-f", "http://{{ docker_service_name }}-orchestrator:{{ credentials.ORCHESTRATOR_INTERNAL_PORT }}"]
       interval: 30s
       timeout: 10s
       retries: 5
     ports:
       - "{{ credentials.ORCHESTRATOR_INTERNAL_PORT }}:{{ credentials.ORCHESTRATOR_INTERNAL_PORT }}"
 
-  {{ docker_service_name }}_transformer:
-    hostname: {{ docker_service_name }}_transformer
+  {{ docker_service_name }}-transformer:
+    hostname: {{ docker_service_name }}-transformer
     image: "samagragovernance/transformer:{{ credentials.CURRENT_VERSION }}"
     env_file: {{ env_file_deployment_location }}
     networks:
@@ -43,15 +43,15 @@ services:
         aliases:
           - {{ network_alias_name }}
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:{{ credentials.TRANSFORMER_INTERNAL_PORT }}"]
+      test: ["CMD", "curl", "-f", "http://{{ docker_service_name }}-transformer:{{ credentials.TRANSFORMER_INTERNAL_PORT }}"]
       interval: 30s
       timeout: 10s
       retries: 5
     ports:
       - "{{ credentials.TRANSFORMER_INTERNAL_PORT }}:{{ credentials.TRANSFORMER_INTERNAL_PORT }}"
 
-  {{ docker_service_name }}_outbound:
-    hostname: {{ docker_service_name }}_outbound
+  {{ docker_service_name }}-outbound:
+    hostname: {{ docker_service_name }}-outbound
     image: "samagragovernance/outbound:{{ credentials.CURRENT_VERSION }}"
     env_file: {{ env_file_deployment_location }}
     networks:
@@ -59,15 +59,15 @@ services:
         aliases:
           - {{ network_alias_name }}
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:{{ credentials.OUTBOUND_INTERNAL_PORT }}"]
+      test: ["CMD", "curl", "-f", "http://{{ docker_service_name }}-outbound:{{ credentials.OUTBOUND_INTERNAL_PORT }}"]
       interval: 30s
       timeout: 10s
       retries: 5
     ports:
       - "{{ credentials.OUTBOUND_INTERNAL_PORT }}:{{ credentials.OUTBOUND_INTERNAL_PORT }}"
 
-  {{ docker_service_name }}_broadcast-transformer:
-    hostname: {{ docker_service_name }}_broadcast-transformer
+  {{ docker_service_name }}-broadcast-transformer:
+    hostname: {{ docker_service_name }}-broadcast-transformer
     image: "samagragovernance/broadcast-transformer:{{ credentials.CURRENT_VERSION }}"
     env_file: {{ env_file_deployment_location }}
     networks:
@@ -75,32 +75,37 @@ services:
         aliases:
           - {{ network_alias_name }}
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:{{ credentials.BROADCAST_TRANSFORMER_INTERNAL_PORT }}"]
+      test: ["CMD", "curl", "-f", "http://{{ docker_service_name }}-broadcast-transformer:{{ credentials.BROADCAST_TRANSFORMER_INTERNAL_PORT }}"]
       interval: 60s
       timeout: 10s
       retries: 5
     ports:
       - "{{ credentials.BROADCAST_TRANSFORMER_INTERNAL_PORT }}:{{ credentials.BROADCAST_TRANSFORMER_INTERNAL_PORT }}"
 
-  {{ docker_service_name }}_cdac:
+  {{ docker_service_name }}-cdac:
     image: samagragovernance/cdac-service:4.10.3
-    hostname: {{ docker_service_name }}_cdac
+    hostname: {{ docker_service_name }}-cdac
     networks:
       application_default:
         aliases:
           - {{ network_alias_name }}
-    env_file: {{ env_file_deployment_location }}
+    environment:
+      USERNAME: {{ credentials.CDAC_USERNAME }}
+      SENDER_ID: {{ credentials.CDAC_SENDER_ID }}
+      PASSWORD: {{ credentials.CDAC_PASSWORD }}
+      SECURE_KEY: {{ credentials.CDAC_SECURE_KEY }}
+      TEMPLATE_ID: {{ credentials.CDAC_TEMPLATE_ID }}
     ports:
       - 9095:9095
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://cdac:9095/api"]
+      test: ["CMD", "curl", "-f", "http://{{ docker_service_name }}_cdac:9095/api"]
       interval: 2s
       timeout: 5s
       retries: 20
 
-  {{ docker_service_name }}_cass:
+  {{ docker_service_name }}-cass:
     image: cassandra:latest
-    hostname: {{ docker_service_name }}_cass
+    hostname: {{ docker_service_name }}-cass
     networks:
       application_default:
         aliases:
@@ -130,7 +135,8 @@ services:
       timeout: 10s
       retries: 10
 
-  {{ docker_service_name }}_graphql-formsdb:
+  {{ docker_service_name }}-graphql-formsdb:
+    hostname: {{ docker_service_name }}-graphql-formsdb
     image: hasura/graphql-engine:latest
     networks:
       application_default:

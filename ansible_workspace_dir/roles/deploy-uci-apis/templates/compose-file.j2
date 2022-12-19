@@ -13,7 +13,7 @@ services:
         curl -L https://github.com/hasura/graphql-engine/raw/stable/cli/get.sh | bash
         cd migrations/uci-core/
         pwd
-        hasura migrate apply --endpoint http://{{ service_api_db_hasura_hostname }}:8080
+        hasura migrate apply --endpoint http://{{ service_uci_api_db_hasura_hostname }}:8080
         echo "Server Started"
         cd ../../
         pm2-runtime app.js

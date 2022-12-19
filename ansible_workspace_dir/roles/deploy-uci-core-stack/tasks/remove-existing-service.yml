@@ -1,5 +1,33 @@
 ---
-  - name: Removing the existing service {{  docker_service_stack_name  }}_{{ docker_service_name }}
-    shell: docker service rm {{  docker_service_stack_name  }}_{{ docker_service_name }}
+  - name: Removing the existing service {{  docker_service_stack_name  }}_{{ docker_service_name }}-inbound
+    shell: docker service rm {{  docker_service_stack_name  }}_{{ docker_service_name }}-inbound
+    when: "force_reload==true"
+    ignore_errors: true
+  - name: Removing the existing service {{  docker_service_stack_name  }}_{{ docker_service_name }}-orchestrator
+    shell: docker service rm {{  docker_service_stack_name  }}_{{ docker_service_name }}-orchestrator
+    when: "force_reload==true"
+    ignore_errors: true
+  - name: Removing the existing service {{  docker_service_stack_name  }}_{{ docker_service_name }}-transformer
+    shell: docker service rm {{  docker_service_stack_name  }}_{{ docker_service_name }}-transformer
+    when: "force_reload==true"
+    ignore_errors: true
+  - name: Removing the existing service {{  docker_service_stack_name  }}_{{ docker_service_name }}-outbound
+    shell: docker service rm {{  docker_service_stack_name  }}_{{ docker_service_name }}-outbound
+    when: "force_reload==true"
+    ignore_errors: true
+  - name: Removing the existing service {{  docker_service_stack_name  }}_{{ docker_service_name }}-broadcast-transformer
+    shell: docker service rm {{  docker_service_stack_name  }}_{{ docker_service_name }}-broadcast-transformer
+    when: "force_reload==true"
+    ignore_errors: true
+  - name: Removing the existing service {{  docker_service_stack_name  }}_{{ docker_service_name }}-cdac
+    shell: docker service rm {{  docker_service_stack_name  }}_{{ docker_service_name }}-cdac
+    when: "force_reload==true"
+    ignore_errors: true
+  - name: Removing the existing service {{  docker_service_stack_name  }}_{{ docker_service_name }}-cass
+    shell: docker service rm {{  docker_service_stack_name  }}_{{ docker_service_name }}-cass
+    when: "force_reload==true"
+    ignore_errors: true
+  - name: Removing the existing service {{  docker_service_stack_name  }}_{{ docker_service_name }}-graphql-formsdb
+    shell: docker service rm {{  docker_service_stack_name  }}_{{ docker_service_name }}-graphql-formsdb
     when: "force_reload==true"
     ignore_errors: true
