@@ -1,5 +1,17 @@
 ---
-  - name: Removing the existing service {{  docker_service_stack_name  }}_{{ docker_service_name }}
-    shell: docker service rm {{  docker_service_stack_name  }}_{{ docker_service_name }}
+  - name: Removing the existing service {{  docker_service_stack_name  }}_{{ docker_service_name }}_web
+    shell: docker service rm {{  docker_service_stack_name  }}_{{ docker_service_name }}_web
+    when: "force_reload==true"
+    ignore_errors: true
+  - name: Removing the existing service {{  docker_service_stack_name  }}_{{ docker_service_name }}_worker
+    shell: docker service rm {{  docker_service_stack_name  }}_{{ docker_service_name }}_worker
+    when: "force_reload==true"
+    ignore_errors: true
+  - name: Removing the existing service {{  docker_service_stack_name  }}_{{ docker_service_name }}_plugins
+    shell: docker service rm {{  docker_service_stack_name  }}_{{ docker_service_name }}_plugins
+    when: "force_reload==true"
+    ignore_errors: true
+  - name: Removing the existing service {{  docker_service_stack_name  }}_{{ docker_service_name }}_asyncmigrationscheck
+    shell: docker service rm {{  docker_service_stack_name  }}_{{ docker_service_name }}_asyncmigrationscheck
     when: "force_reload==true"
     ignore_errors: true

@@ -46,10 +46,6 @@
       tags: [deploy-templater]
     - role: deploy-posthog-clickhouse
       tags: [deploy-posthog-clickhouse]
-    - role: deploy-posthog-kafka
-      tags: [deploy-posthog-kafka]
-    - role: deploy-posthog-zookeeper
-      tags: [deploy-posthog-zookeeper]
     - role: deploy-posthog-object-storage
       tags: [deploy-posthog-object-storage]
     - role: deploy-posthog
