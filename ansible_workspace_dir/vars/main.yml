@@ -229,18 +229,6 @@ posthog_db_logs: /mydata/logs/posthog-db
 force_reload_posthog_db_service: true
 posthog_db_secret_path: kv/data/samarth/posthog-pgbouncer
 
-# For Posthog Kafka
-service_posthog_kafka_service: posthog_kafka-service
-network_alias_posthog_kafka_service: posthog_kafka-service
-posthog_kafka_logs: /mydata/logs/posthog-kafka
-force_reload_posthog_kafka_service: true
-
-# For Posthog Zookeeper
-service_posthog_zookeeper_service: posthog_zookeeper-service
-network_alias_posthog_zookeeper_service: posthog_zookeeper-service
-posthog_zookeeper_logs: /mydata/logs/posthog-zookeeper
-force_reload_posthog_zookeeper_service: true
-
 # For Posthog Object Storage
 service_posthog_object_storage_service: posthog_object_storage-service
 network_alias_posthog_object_storage_service: posthog_object_storage-service

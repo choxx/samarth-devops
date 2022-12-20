@@ -20,7 +20,7 @@ services:
       CLICKHOUSE_DATABASE: '{{ credentials.CLICKHOUSE_DATABASE }}'
       CLICKHOUSE_SECURE: '{{ credentials.CLICKHOUSE_SECURE }}'
       CLICKHOUSE_VERIFY: '{{ credentials.CLICKHOUSE_VERIFY }}'
-      KAFKA_URL: 'kafka://{{ service_posthog_kafka_service }}'
+      KAFKA_URL: 'kafka://{{ service_posthog_clickhouse }}_kafka'
       REDIS_URL: '{{ credentials.REDIS_URL }}'
       SECRET_KEY: {{ credentials.SECRET_KEY }}
       PGHOST: {{ credentials.PGHOST }}
@@ -48,7 +48,7 @@ services:
             - {{ network_alias_name }}
     environment:
       DATABASE_URL: '{{ credentials.DATABASE_URL }}'
-      KAFKA_HOSTS: '{{ service_posthog_kafka_service }}:9092'
+      KAFKA_HOSTS: '{{ service_posthog_clickhouse }}_kafka:9092'
       REDIS_URL: '{{ credentials.REDIS_URL }}'
       CLICKHOUSE_HOST: '{{ service_posthog_clickhouse }}'
 
