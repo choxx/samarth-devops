@@ -50,6 +50,8 @@
       tags: [deploy-posthog-object-storage]
     - role: deploy-posthog
       tags: [deploy-posthog]
+    - role: deploy-posthog-stack
+      tags: [deploy-posthog-stack]
     - role: deploy-airflow-webserver
       tags: [deploy-airflow-webserver]
     - role: deploy-airflow-flower
