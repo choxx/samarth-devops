@@ -1,0 +1,128 @@
+version: '3.7'
+
+services:
+
+  {{ docker_service_name }}_clickhouse:
+    image: {{ docker_hub_url }}/{{ image_name }}-clickhouse:{{ tag }}
+    hostname: "posthog_clickhouse"
+    restart: always
+    volumes:
+      - clickhouse-data:/var/lib/clickhouse
+    depends_on:
+      - {{ docker_service_name }}_kafka
+      - {{ docker_service_name }}_zookeeper
+    networks:
+      application_default:
+        aliases:
+            - {{ network_alias_name }}
+
+  {{ docker_service_name }}_zookeeper:
+    hostname: {{ docker_service_name }}_zookeeper
+    image: zookeeper:3.7.0
+    restart: always
+    volumes:
+      - zookeeper-datalog:/datalog
+      - zookeeper-data:/data
+      - zookeeper-logs:/logs
+    networks:
+      application_default:
+        aliases:
+            - {{ network_alias_name }}
+
+  {{ docker_service_name }}_kafka:
+    image: bitnami/kafka:2.8.1-debian-10-r99
+    hostname: "{{ docker_service_name }}_kafka"
+    restart: always
+    depends_on:
+      - {{ docker_service_name }}_zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1001
+      KAFKA_CFG_RESERVED_BROKER_MAX_ID: 1001
+      KAFKA_CFG_LISTENERS: PLAINTEXT://:9092
+      KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://{{ docker_service_name }}_kafka:9092
+      KAFKA_CFG_ZOOKEEPER_CONNECT: {{ docker_service_name }}_zookeeper:2181
+      ALLOW_PLAINTEXT_LISTENER: 'true'
+
+    networks:
+      application_default:
+        aliases:
+            - {{ network_alias_name }}
+
+  {{ docker_service_name }}_worker: &{{ docker_service_name }}_worker
+    image: {{ docker_hub_url }}/{{ image_name }}-posthog:{{ tag }}
+    hostname: "posthog"
+    command: ./bin/docker-worker-celery --with-scheduler
+    networks:
+      application_default:
+        aliases:
+            - {{ network_alias_name }}
+    depends_on:
+      - {{ docker_service_name }}_clickhouse
+      - {{ docker_service_name }}_kafka
+    environment:
+      SENTRY_DSN: '{{ credentials.SENTRY_DSN }}'
+      SITE_URL: {{ credentials.SITE_URL }}
+      DISABLE_SECURE_SSL_REDIRECT: '{{ credentials.DISABLE_SECURE_SSL_REDIRECT }}'
+      IS_BEHIND_PROXY: '{{ credentials.IS_BEHIND_PROXY }}'
+      DATABASE_URL: '{{ credentials.DATABASE_URL }}'
+      CLICKHOUSE_HOST: 'posthog_clickhouse'
+      CLICKHOUSE_DATABASE: '{{ credentials.CLICKHOUSE_DATABASE }}'
+      CLICKHOUSE_SECURE: '{{ credentials.CLICKHOUSE_SECURE }}'
+      CLICKHOUSE_VERIFY: '{{ credentials.CLICKHOUSE_VERIFY }}'
+      KAFKA_URL: 'kafka://{{ docker_service_name }}_kafka'
+      REDIS_URL: '{{ credentials.REDIS_URL }}'
+      SECRET_KEY: {{ credentials.SECRET_KEY }}
+      PGHOST: {{ credentials.PGHOST }}
+      PGUSER: {{ credentials.PGUSER }}
+      PGPASSWORD: {{ credentials.PGPASSWORD }}
+      DEPLOYMENT: {{ credentials.DEPLOYMENT }}
+
+  {{ docker_service_name }}_web:
+    <<: *{{ docker_service_name }}_worker
+    command: /compose/start
+    restart: on-failure
+    networks:
+      application_default:
+        aliases:
+            - {{ network_alias_name }}
+    {% if publish_ports == true %}
+
+    ports:
+      - {{ service_posthog_stack_posthog_host_port }}:{{ service_posthog_stack_posthog_docker_port }}
+      
+    {% endif %}
+      
+  {{ docker_service_name }}_plugins:
+    image: {{ docker_hub_url }}/{{ image_name }}-posthog:{{ tag }}
+    command: ./bin/plugin-server --no-restart-loop
+    networks:
+      application_default:
+        aliases:
+            - {{ network_alias_name }}
+    depends_on:
+      - {{ docker_service_name }}_clickhouse
+      - {{ docker_service_name }}_kafka
+    environment:
+      DATABASE_URL: '{{ credentials.DATABASE_URL }}'
+      KAFKA_HOSTS: '{{ docker_service_name }}_kafka:9092'
+      REDIS_URL: '{{ credentials.REDIS_URL }}'
+      CLICKHOUSE_HOST: 'posthog_clickhouse'
+
+  {{ docker_service_name }}_asyncmigrationscheck:
+   <<: *{{ docker_service_name }}_worker
+   command: python manage.py run_async_migrations --check
+   networks:
+     application_default:
+       aliases:
+           - {{ network_alias_name }}
+   restart: 'no'
+ 
+networks:
+  application_default:
+    external: true
+
+volumes:
+  clickhouse-data:
+  zookeeper-datalog:
+  zookeeper-data:
+  zookeeper-logs:

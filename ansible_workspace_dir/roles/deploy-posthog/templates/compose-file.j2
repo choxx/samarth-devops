@@ -53,13 +53,13 @@ services:
       CLICKHOUSE_HOST: '{{ service_posthog_clickhouse }}'
 
   {{ docker_service_name }}_asyncmigrationscheck:
-    <<: *{{ docker_service_name }}_worker
-    command: python manage.py run_async_migrations --check
-    networks:
-      application_default:
-        aliases:
-            - {{ network_alias_name }}
-    restart: 'no'
+   <<: *{{ docker_service_name }}_worker
+   command: python manage.py run_async_migrations --check
+   networks:
+     application_default:
+       aliases:
+           - {{ network_alias_name }}
+   restart: 'no'
 
 networks:
   application_default:

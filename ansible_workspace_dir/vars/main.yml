@@ -246,6 +246,16 @@ posthog_logs: /mydata/logs/posthog
 force_reload_posthog_service: true
 posthog_secret_path: kv/data/samarth/posthog
 
+# Posthog Stack
+service_posthog_stack_service: posthog-stack
+service_posthog_stack_posthog_host_port: 8023
+service_posthog_stack_posthog_docker_port: 8000
+network_alias_posthog_stack_service: posthog-stack
+image_posthog_stack_service: posthog-deploy
+posthog_stack_logs: /mydata/logs/posthog-stack
+force_reload_posthog_stack_service: true
+posthog_stack_secret_path: kv/data/samarth/posthog
+
 # For Airflow Webserver
 service_airflow_webserver: airflow_webserver-service
 service_airflow_webserver_host_port: 8181
@@ -394,5 +404,4 @@ force_reload_uci_transport_socket_service: true
 service_uci_transport_socket_hostname: uci-transport-socket
 uci_transport_socket_secret_path: "{{ uci_apis_secret_path }}" # use common vault for UCI
 
-VAULT_TOKEN: hvs.ttV4i46bD9rngBD6oI6fzCSn
-VAULT_ADDR: http://128.199.26.225:8200
+
