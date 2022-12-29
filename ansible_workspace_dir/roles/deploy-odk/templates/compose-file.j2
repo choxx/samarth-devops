@@ -11,7 +11,7 @@ services:
     {% endif %}
 
     volumes:
-        - webapps:/usr/local/tomcat/webapps
+        - odk-webapps:/usr/local/tomcat/webapps
     
     env_file:
       - {{ env_file_deployment_location }}
@@ -21,4 +21,4 @@ networks:
     external: true
 
 volumes:
-  webapps:
+  odk-webapps:
