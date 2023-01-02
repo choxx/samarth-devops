@@ -116,7 +116,23 @@ services:
        aliases:
            - {{ network_alias_name }}
    restart: 'no'
- 
+
+  {{ docker_service_name }}_object_storage:
+    image: minio/minio:RELEASE.2022-09-17T00-09-45Z.fips
+    hostname: "{{ docker_service_name }}_object_storage"
+    volumes:
+      - object_storage:/data
+    environment:
+      MINIO_ROOT_USER: {{ credentials.MINIO_ROOT_USER }}
+      MINIO_ROOT_PASSWORD: {{ credentials.MINIO_ROOT_PASSWORD }}
+    entrypoint: sh
+    command: -c 'mkdir -p /data/posthog && minio server --address ":19000" --console-address ":19001" /data' # create the 'posthog' bucket before starting the service
+
+    networks:
+      application_default:
+        aliases:
+            - {{ network_alias_name }}
+
 networks:
   application_default:
     external: true
@@ -126,3 +142,4 @@ volumes:
   zookeeper-datalog:
   zookeeper-data:
   zookeeper-logs:
+  object_storage:

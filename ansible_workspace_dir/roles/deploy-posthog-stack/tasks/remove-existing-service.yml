@@ -27,3 +27,7 @@
     shell: docker service rm {{  docker_service_stack_name  }}_{{ docker_service_name }}_kafka
     when: "force_reload==true"
     ignore_errors: true
+  - name: Removing the existing service {{  docker_service_stack_name  }}_{{ docker_service_name }}_object_storage
+    shell: docker service rm {{  docker_service_stack_name  }}_{{ docker_service_name }}_object_storage
+    when: "force_reload==true"
+    ignore_errors: true
