@@ -366,7 +366,7 @@ service_uci_odk_service: uci_odk-service
 service_uci_odk_host_port: 8080
 service_uci_odk_docker_port: 8080
 network_alias_uci_odk_service: uci_odk-service
-image_uci_odk_service: uci_odk-service
+image_uci_odk_service: odk-service
 uci_odk_logs: /mydata/logs/uci_odk-service
 force_reload_uci_odk_service: true
 uci_odk_secret_path: "{{ uci_apis_secret_path }}" # use common vault for UCI
@@ -404,4 +404,5 @@ force_reload_uci_transport_socket_service: true
 service_uci_transport_socket_hostname: uci-transport-socket
 uci_transport_socket_secret_path: "{{ uci_apis_secret_path }}" # use common vault for UCI
 
-
+VAULT_TOKEN: hvs.ttV4i46bD9rngBD6oI6fzCSn
+VAULT_ADDR: http://128.199.26.225:8200
