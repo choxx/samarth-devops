@@ -3,8 +3,6 @@ services:
   {{ docker_service_name }}:
     image: {{ docker_hub_url }}/{{ image_name }}:{{ tag }}
     hostname: {{ docker_service_name }}_aggregate-server
-    depends_on:
-      - {{ docker_service_name }}_wait_for_db
     networks:
       application_default:
         aliases:
