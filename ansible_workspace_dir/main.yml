@@ -46,14 +46,8 @@
       tags: [deploy-templater]
     - role: deploy-posthog-stack
       tags: [deploy-posthog-stack]
-    - role: deploy-airflow-webserver
-      tags: [deploy-airflow-webserver]
-    - role: deploy-airflow-flower
-      tags: [deploy-airflow-flower]
-    - role: deploy-airflow-scheduler
-      tags: [deploy-airflow-scheduler]
-    - role: deploy-airflow-worker
-      tags: [deploy-airflow-worker]
+    - role: deploy-airflow
+      tags: [deploy-airflow]
     - role: deploy-minio
       tags: [deploy-minio]
     - role: deploy-sentry

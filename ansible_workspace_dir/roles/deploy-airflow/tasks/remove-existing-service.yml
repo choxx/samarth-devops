@@ -1,0 +1,17 @@
+---
+  - name: Removing the existing service {{  docker_service_stack_name  }}_{{ docker_service_name }}_flower
+    shell: docker service rm {{  docker_service_stack_name  }}_{{ docker_service_name }}_flower
+    when: "force_reload==true"
+    ignore_errors: true
+  - name: Removing the existing service {{  docker_service_stack_name  }}_{{ docker_service_name }}_worker
+    shell: docker service rm {{  docker_service_stack_name  }}_{{ docker_service_name }}_worker
+    when: "force_reload==true"
+    ignore_errors: true
+  - name: Removing the existing service {{  docker_service_stack_name  }}_{{ docker_service_name }}_scheduler
+    shell: docker service rm {{  docker_service_stack_name  }}_{{ docker_service_name }}_scheduler
+    when: "force_reload==true"
+    ignore_errors: true
+  - name: Removing the existing service {{  docker_service_stack_name  }}_{{ docker_service_name }}_webserver
+    shell: docker service rm {{  docker_service_stack_name  }}_{{ docker_service_name }}_webserver
+    when: "force_reload==true"
+    ignore_errors: true
