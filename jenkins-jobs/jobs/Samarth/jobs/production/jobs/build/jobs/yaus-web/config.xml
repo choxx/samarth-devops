@@ -31,7 +31,7 @@
       <jenkins.branch.BranchSource>
         <source class="jenkins.plugins.git.GitSCMSource" plugin="git@4.14.0">
           <id>31fcccf6-9be5-4a00-9a58-cbb59922d722</id>
-          <remote>https://github.com/choxx/yaus.git</remote>
+          <remote>https://github.com/Samagra-Development/yaus</remote>
           <credentialsId></credentialsId>
           <traits>
             <jenkins.plugins.git.traits.BranchDiscoveryTrait/>
