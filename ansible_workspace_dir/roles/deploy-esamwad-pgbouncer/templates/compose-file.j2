@@ -15,6 +15,8 @@ services:
       DEFAULT_POOL_SIZE: {{ credentials.DEFAULT_POOL_SIZE }}
       MAX_CLIENT_CONN: {{ credentials.MAX_CLIENT_CONN }}
       MAX_DB_CONNECTIONS: {{ credentials.MAX_DB_CONNECTIONS }}
+    volumes:
+      - {{ userslist_file_deployment_location }}:/etc/pgbouncer/userlist.txt
 
     {% if publish_ports == true %}
 

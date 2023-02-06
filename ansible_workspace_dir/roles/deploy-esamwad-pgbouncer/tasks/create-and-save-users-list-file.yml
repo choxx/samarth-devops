@@ -1,0 +1,9 @@
+---
+  - name: Ensure env directory exists
+    file:
+      path: "{{ env_files_dir }}"
+      state: directory
+  - name: Create and save userslist template
+    template:
+      src: "{{ template_users_list_file_name }}"
+      dest: "{{ userslist_file_deployment_location }}"

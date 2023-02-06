@@ -21,7 +21,5 @@ force_reload: "{{ force_reload_esamwad_broker_service }}"
 host_logs_location: "{{ esamwad_broker_logs }}"
 docker_logs_location: /logs
 
-DOCKER_HUB_IMAGE: docker.io/bitnami/rabbitmq:{{ tag }}
-
 # Your credentials on the vault
 credentials: "{{ lookup('hashi_vault', 'secret={{ esamwad_broker_secret_path }}', url=VAULT_ADDR, token=VAULT_TOKEN) }}"

@@ -5,7 +5,7 @@ service_esamwad_backend_service: esamwad-backend-service
 service_esamwad_backend_host_port: 8006
 service_esamwad_backend_docker_port: 8000
 network_alias_esamwad_backend_service: esamwad-backend-service
-image_esamwad_backend_service: esamwad-backend
+image_esamwad_backend_service: samagragovernance/esamwad-backend
 esamwad_backend_logs: /mydata/logs/esamwad-backend
 force_reload_esmawad_backend_service: true
 esamwad_secret_path: kv/data/samarth/esamwad-backend
@@ -15,7 +15,7 @@ service_esamwad_hasura_service: esamwad_hasura-service
 service_esamwad_hasura_host_port: 8081
 service_esamwad_hasura_docker_port: 8080
 network_alias_esamwad_hasura_service: esamwad_hasura-service
-image_esamwad_hasura_service: samarth-esamwad_hasura-service
+image_esamwad_hasura_service: hasura/graphql-engine
 esamwad_hasura_logs: /mydata/logs/esamwad_hasura
 force_reload_esamwad_hasura_service: true
 esamwad_hasura_secret_path: kv/data/samarth/esamwad-hasura
@@ -25,7 +25,7 @@ service_esamwad_pgbouncer_service: esamwad_pgbouncer-service
 service_esamwad_pgbouncer_host_port: 6435
 service_esamwad_pgbouncer_docker_port: 6432
 network_alias_esamwad_pgbouncer_service: esamwad_pgbouncer-service
-image_esamwad_pgbouncer_service: esamwad-pgbouncer
+image_esamwad_pgbouncer_service: brainsam/pgbouncer
 esamwad_pgbouncer_logs: /mydata/logs/esamwad_pgbouncer
 force_reload_esamwad_pgbouncer_service: true
 esamwad_pgbouncer_secret_path: kv/data/samarth/esamwad-pgbouncer
@@ -35,7 +35,7 @@ service_esamwad_broker: esamwad_broker-service
 service_esamwad_broker_host_port: 5673
 service_esamwad_broker_docker_port: 5672
 network_alias_esamwad_broker_service: esamwad_broker-service
-image_esamwad_broker_service: samarth-esamwad_broker-service
+image_esamwad_broker_service: bitnami/rabbitmq
 esamwad_broker_logs: /mydata/logs/esamwad_broker
 force_reload_esamwad_broker_service: true
 esamwad_broker_secret_path: "{{ esamwad_secret_path }}" # using the same path

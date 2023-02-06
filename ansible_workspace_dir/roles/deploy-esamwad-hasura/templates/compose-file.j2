@@ -3,7 +3,7 @@ version: '3'
 services:
 
   {{ docker_service_name }}:
-    image: {{ DOCKER_HUB_IMAGE }}
+    image: {{ docker_hub_url }}/{{ image_name }}:{{ tag }}
     environment:
     environment:
       - VIRTUAL_HOST={{ credentials.VIRTUAL_HOST }}

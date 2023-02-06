@@ -3,7 +3,7 @@ version: '3'
 services:
 
   {{ docker_service_name }}:
-    image: {{ DOCKER_HUB_IMAGE }}
+    image: {{ docker_hub_url }}/{{ image_name }}:{{ tag }}
     container_name: {{ docker_service_name }}
     environment:
       - RABBITMQ_PASSWORD={{ credentials.RABBITMQ_PASSWORD }}

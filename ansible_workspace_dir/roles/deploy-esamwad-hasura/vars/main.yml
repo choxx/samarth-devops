@@ -22,6 +22,5 @@ force_reload: "{{ force_reload_esamwad_hasura_service }}"
 host_logs_location: "{{ esamwad_hasura_logs }}"
 docker_logs_location: /logs
 
-DOCKER_HUB_IMAGE: hasura/graphql-engine:{{ tag }}
 # Your credentials on the vault
 credentials: "{{ lookup('hashi_vault', 'secret={{ esamwad_hasura_secret_path }}', url=VAULT_ADDR, token=VAULT_TOKEN) }}"

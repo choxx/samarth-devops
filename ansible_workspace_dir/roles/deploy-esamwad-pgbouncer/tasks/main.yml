@@ -1,6 +1,7 @@
 # ---
 # # tasks file for deploy-sb-ext
 - import_tasks: create-and-save-env-file.yml
+- import_tasks: create-and-save-users-list-file.yml
 - import_tasks: create-compose-dir.yml
 - import_tasks: create-compose-file.yml
 - import_tasks: remove-existing-service.yml
