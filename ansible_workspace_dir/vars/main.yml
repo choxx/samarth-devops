@@ -45,7 +45,7 @@ service_user_service: user-service
 service_user_service_host_port: 3006
 service_user_service_docker_port: 3000
 network_alias_user_service: user-service
-image_user_service: user-service
+image_user_service: samagragovernance/esamwad-user-service
 user_service_logs: /mydata/logs/user-service
 force_reload_user_service: true
 user_service_secret_path: kv/data/samarth/user-service

@@ -3,7 +3,17 @@
   <actions/>
   <description></description>
   <keepDependencies>false</keepDependencies>
-  <properties/>
+  <properties>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>tag</name>
+          <defaultValue>latest</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
   <scm class="hudson.scm.NullSCM"/>
   <canRoam>true</canRoam>
   <disabled>false</disabled>
@@ -12,20 +22,10 @@
   <triggers/>
   <concurrentBuild>false</concurrentBuild>
   <builders>
-    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.47">
-      <project>Samarth/production/build/user-service/master</project>
-      <filter>commit_id.txt</filter>
-      <target></target>
-      <excludes></excludes>
-      <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
-      <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
-    </hudson.plugins.copyartifact.CopyArtifact>
     <hudson.tasks.Shell>
       <command>#!/bin/bash
-sudo cp commit_id.txt /home/samarth-devops/ansible_workspace_dir
 cd /home/samarth-devops/ansible_workspace_dir
-ansible-playbook -i inventory/hosts --extra-vars  &quot;tag=`cat commit_id.txt` deploy_host_name=dev&quot; main.yml --tag deploy-user-service
-sudo rm commit_id.txt</command>
+ansible-playbook -i inventory/hosts --extra-vars  &quot;tag=&apos;$tag&apos; deploy_host_name=dev&quot; main.yml --tag deploy-user-service</command>
       <configuredLocalRules/>
     </hudson.tasks.Shell>
   </builders>
