@@ -143,7 +143,7 @@ service_cdac_service: cdac-service
 service_cdac_host_port: 8090
 service_cdac_docker_port: 8080
 network_alias_cdac_service: cdac-service
-image_cdac_service: cdac-service
+image_cdac_service: samagragovernance/cdac-service
 cdac_service_logs: /mydata/logs/cdac-service
 force_reload_cdac_service: true
 cdac_service_secret_path: kv/data/samarth/cdac-service
